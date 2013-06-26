@@ -1,0 +1,10 @@
+﻿body {
+}
+#logo {
+    width:312px;
+    height:72px;
+    background-image:url("../img/logo.png");
+}
+h1 {
+    color:#808080;
+}

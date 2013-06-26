@@ -1,0 +1,177 @@
+﻿        body {
+            margin:0px auto;
+        }
+        .A {
+            margin:0px;
+            position:fixed;
+            width:170px;
+            height:100%;
+            background-color:#425453;
+
+
+        }
+        .B {
+            margin:0px;
+            position:fixed;
+            width:200px;
+            height:100%;
+            background-color:#969490;
+        }
+        .logoFont {
+            position:relative;
+            width:100px;
+            font-size:22px;
+            font-weight:bold;
+            font-family:'Microsoft YaHei';
+            color:#F5FFFE;
+            margin:0px auto;
+            margin-top:30px;
+        }
+        .DH2 {
+            position:relative;  
+            font-size:15px;
+            font-weight:bold;
+            font-family:'Microsoft YaHei';
+            color:#6794C7;
+            width:100%;
+        }
+        .DHlist {
+            margin:0px;
+            position:relative;
+            width:170px;
+            background-color:#425453;
+        }
+        .DHlistIn {
+            width:170px;
+            background-color:#425453;
+        }
+            .DHlistIn a {
+                position:relative;
+                left:40px;
+                width:140px;
+                text-align:left;
+                margin:0px;
+                display:block;
+                text-decoration:none;
+                color:#F5FFFE;
+                line-height:25px;
+                font-size:12px;
+                font-weight:bold;
+                font-family:'Microsoft YaHei';
+                padding:0px;
+                height:25px; 
+            }
+                .DHlistIn a:hover {
+                    color:#6794C7;
+                }
+
+                /**DATA**/
+        #logo {
+            width:350px;
+            height:194px;
+            background-image:url("../img/Logo.png");
+            background-repeat:no-repeat;
+            position:relative;
+            margin:0px auto;
+        }
+        #dataC {
+            position:absolute;
+            left:200px;
+            width:auto;
+        }
+.dataH1 {
+    width:99%;
+    height:30px;
+    line-height:30px;
+    background-color:#425453;
+    font-family:'Microsoft YaHei';
+    font-weight:bold;
+    color:#F5FFFE;
+    font-size:15px;
+    padding-left:3px;
+}
+.Dpage {
+    font-family:'Microsoft YaHei';
+    font-size:13px;
+    color:#425453;
+    padding-left:5px;
+}
+    .Dpage h1 {
+        font-family:'Microsoft YaHei';
+        font-size:16px;
+        color:#425453;
+        font-weight:bold;  
+    }
+    .Dpage span {
+        font-family:'Microsoft YaHei';
+        font-size:15px;
+        color:#425453;
+        font-weight:bold;
+
+    }
+    .Dpage ul {
+        padding:13px;
+        font-weight:bold;
+    }
+    .Dpage table {
+        font-family:'Microsoft YaHei'
+        margin-top: 10px;
+        border-collapse: collapse;
+        border: 1px solid #888;
+        width: 800px;
+    }
+    .Dpage tbody {
+        display: table-row-group;
+        vertical-align: middle;
+        border-color: inherit;
+}
+    .Dpage tr {
+        display: table-row;
+        vertical-align: inherit;
+        border-color: inherit;
+    }
+    .Dpage td {
+        vertical-align: text-top;
+        padding: 5px 15px 5px 5px;
+        background-color: #efefef;
+        border: 1px solid #aaa;
+    }
+    .Dpage th {
+        vertical-align: baseline;
+        padding: 5px 15px 5px 5px;
+        background-color: #ccc;
+        border: 1px solid #888;
+        text-align: left;
+    }
+    .Dpage img {
+        border:#425453 solid 5px;
+    }
+
+#footer {
+    text-align: center;
+    font-family:'Microsoft YaHei';
+    font-size:12px;
+    color:#F5FFFE;
+    height:50px;
+    background-color:#425453;
+}
+.line {
+    width:800px;
+    position:relative;
+    margin:0px auto;
+    border-bottom:#425453 solid 1px;
+    margin-bottom:20px;
+
+
+}
+.PA {
+    font-family:'Microsoft YaHei';
+    font-size:15px;
+    font-weight:bold;
+    text-decoration:none;
+    color:#6794C7;
+
+}
+    .PA:hover {color:#425453;
+        
+    }

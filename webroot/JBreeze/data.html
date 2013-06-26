@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+
+    <link href="src/JBreeze.css" rel="stylesheet" />
+    <link href="CSS/JBreezeWeb.css" rel="stylesheet" />
+    <script src="src/JBreeze.js"></script>
+</head>
+<body>
+
+
+        <script type="text/javascript">
+            JBreeze.extendOBJ({
+                DHlist: function (titleName, nameAry, herfAry) {//本站使用的导航模块
+                    var Daohang = new JBreeze.GUI.NavigationBar("DHlist", nameAry, herfAry, true, true);
+                    var Dh2 = new JBreeze.OBJ("DH2", "h2", titleName, "Title");
+                    Daohang.addBefore(Dh2, Daohang.JBbar_);
+
+                    Daohang.JBbar_.setClassName("DHlistIn");
+                    return Daohang;
+                }
+            });
+            JBreeze.extendOBJ({
+                JBreezeWeb: function () {
+                    /***
+                    *-------------创建页面主体结构----------
+                    */
+                    var A = new JBreeze.GUI.Panel("A");//导航主板
+                    var B = new JBreeze.GUI.Panel("B");//导航背景
+                    B.append(A);
+                    JBreeze.JBBody.append(B);
+
+                    /***
+                    *-------------创建各个元素----------
+                    */
+                    var logo = new JBreeze.GUI.Label("logoFont", "JBreeze");
+                    var DH = new Array();
+                    DH[0] = new JBreeze.GUI.DHlist("概况",
+                        ["什么是JBreeze", "授权", "协助编程时的提示", "几个简单的例子"],
+                        ["#toA1", "#toA2", "#toA3", "#toA4"]);
+                    DH[1] = new JBreeze.GUI.DHlist("JB对象及其操作",
+                        ["对象的创建", "对象的操作", "CSS操作函数", "扩展和模块管理"],
+                        ["#toB1", "#toB2", "#toB3", "#toB4", ]);
+                    DH[2] = new JBreeze.GUI.DHlist("事件和特效",
+                        ["JBreeze事件管理", "基本特效"],
+                        ["#toC1", "#toC2"]);
+                    DH[3] = new JBreeze.GUI.DHlist("AJAX",
+                        ["XML和JSON", "远程文件加载"],
+                        ["#toD1", "#toD2"]);
+
+                    /***
+                    *-------------添加已创建元素----------
+                    */
+                    A.append(logo);
+                    for (var i = 0; i < DH.length; i++) A.append(DH[i]);
+                    return JBreeze.JBBody;
+                }
+            });
+
+            JBreeze.onReady(function () {//测试调用  我们封装的对象
+                var JBweb = new JBreeze.GUI.JBreezeWeb();
+
+            });
+        </script>
+</body>
+</html>
+

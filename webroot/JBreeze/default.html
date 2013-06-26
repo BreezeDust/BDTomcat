@@ -1,0 +1,892 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>JBreeze</title>
+    <meta name="description" content="JBreeze是个JavaScript DHTML工具箱，设计之初用于RIA程序开发,原生JS框架">
+    <link href="src/JBreeze.css" rel="stylesheet" />
+    <link href="CSS/JBreezeWeb.css" rel="stylesheet" />
+    <script src="src/JBreeze.js"></script>
+    <script type="text/javascript" src="Synta/scripts/shCore.js"></script>
+    <script type="text/javascript" src="Synta/scripts/shBrushJScript.js"></script>
+    <link type="text/css" rel="stylesheet" href="Synta/styles/shCore.css" />
+    <link type="text/css" rel="stylesheet" href="Synta/styles/shCoreDefault.css" />
+
+</head>
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+</script>
+<body>
+    <script type="text/javascript">
+        JBreeze.extendOBJ({
+            DHlist: function (titleName, nameAry, herfAry) {//自定义扩展类
+                var Daohang = new JBreeze.GUI.NavigationBar("DHlist", nameAry, herfAry, true, true);
+                var Dh2 = new JBreeze.OBJ("DH2", "h2", titleName, "Title");
+                Daohang.addBefore(Dh2, Daohang.JBbar_);
+
+                Daohang.JBbar_.setClassName("DHlistIn");
+                return Daohang;
+
+            }
+        });
+
+        JBreeze.onReady(function () {
+            /***
+            *-------------创建页面主体结构----------
+            */
+            var A = new JBreeze.GUI.Panel("A");//导航主板
+            var B = new JBreeze.GUI.Panel("B");//导航背景
+            B.append(A);
+            JBreeze.JBBody.append(B);
+
+            /***
+            *-------------创建各个元素----------
+            */
+            var logo = new JBreeze.GUI.Label("logoFont", "JBreeze");
+            var DH = new Array();
+            DH[0] = new JBreeze.GUI.DHlist("概况",
+                ["什么是JBreeze", "授权", "协助编程时的提示", "几个简单的例子"],
+                ["#toA1", "#toA2", "#toA3", "#toA4"]);
+            DH[1] = new JBreeze.GUI.DHlist("JB对象及其操作",
+                ["对象的创建", "对象的操作", "CSS操作函数", "扩展和模块管理"],
+                ["#toB1", "#toB2", "#toB3", "#toB4", ]);
+            DH[2] = new JBreeze.GUI.DHlist("事件和特效",
+                ["JBreeze事件管理", "基本特效"],
+                ["#toC1", "#toC2"]);
+            DH[3] = new JBreeze.GUI.DHlist("AJAX",
+                ["XML和JSON", "远程文件加载", "关于作者"],
+                ["#toD1", "#toD2", "http://www.BreezeDust.com"]);
+
+            /***
+            *-------------添加已创建元素----------
+            */
+            A.append(logo);
+            for (var i = 0; i < DH.length; i++) A.append(DH[i]);
+
+
+        });
+    </script>
+
+
+    <!--正文部分-->
+    <div id="dataC">
+        <div id="logo"></div>
+        <div id="toA1">
+            <div class="dataH1">JBreeze是什么</div>
+            <div class="Dpage">
+                <br />
+                JBreeze是个JavaScript DHTML工具箱，设计之初用于RIA程序开发，在原有HTML DOM上进行扩展和封装了许多实用功能，兼容浏览器,添加了部分特效和事件管理<br />
+                并且JBreeze支持AJAX，简化你的前端开发，方便简洁的管理你曾经的项目模板。
+                <ul>
+                    <li>如果你是一个初学者，那么JBreeze能帮助你快速构建网页元素，JBreeze拥有基础GUI组件和常用特效，面向对象式编程</li>
+                    <li>如果你是一个经验丰富的开发者，JBreeze能协助你快速封装并且管理你的模板，下次使用只需new一下</li>
+                </ul>
+                <a href="https://github.com/BreezeDust/JBreeze/archive/v1.0.zip" class="PA">点击下载</a>
+                <br />
+                <br />
+            </div>
+        </div>
+        <div id="toA2">
+            <div class="dataH1">授权</div>
+            <div class="Dpage">
+                <h1>JBreeze采用MIT开源协议:</h1>
+                <span>被授权人权利</span><br />
+                被授权人有权利使用、复制、修改、合并、出版发行、散布、再授权及贩售软件及软件的副本。<br />
+                被授权人可根据程序的需要修改授权条款为适当的内容。<br />
+                <span>被授权人义务</span><br />
+                在软件和软件的所有副本中都必须包含版权声明和许可声明。<br />
+                <span>其他重要特性</span><br />
+                此授权条款并非属copyleft的自由软件授权条款，允许在自由/开放源码软件或非自由软件（proprietary software）所使用。<br />
+                MIT的内容可依照程序著作权者的需求更改内容。此亦为MIT与BSD（The BSD license, 3-clause BSD license）本质上不同处。<br />
+                MIT条款可与其他授权条款并存。另外，MIT条款也是自由软件基金会（FSF）所认可的自由软件授权条款，与GPL兼容。<br />
+                <br />
+                <br />
+                <span>GITHUB:</span><span><a href="https://github.com/BreezeDust/JBreeze" target="_blank">https://github.com/BreezeDust/JBreeze</a></span>
+                <br />
+                <br />
+            </div>
+
+        </div>
+        <div id="toA3">
+            <div class="dataH1">协助编程时的提示</div>
+            <div class="Dpage">
+                <br />
+                <span>JBreeze注释完整，参数亲和编译器，没有使用{a:值}形式的不亲和参数,使用编译器时能快速找到你需要的函数和设置参数</span>
+                <h1>VS2012</h1>
+                1.函数提示<br />
+                <img src="img/0.png" /><br />
+                <br />
+                2.属性和方法的智能提示<br />
+                <img src="img/1.png" /><br />
+                <br />
+                3.动态链式属性智能提示<br />
+                <img src="img/2.png" /><br />
+                <br />
+                <h1>WebStorm</h1>
+                1.函数提示<br />
+                <img src="img/3.png" /><br />
+                <br />
+                2.属性和方法的智能提示<br />
+                <img src="img/4.png" /><br />
+                <br />
+                3.WebStorm不支持动态链式属性智能提示<br />
+                <br />
+                <br />
+            </div>
+        </div>
+        <div id="toA4">
+            <div class="dataH1">几个简单的例子</div>
+            <div class="Dpage">
+                <h1>使用JBreeze只需要引入JBreeze.js和JBreeze.css就可以了</h1>
+                <pre title="code" class="brush:js;">
+                    &lt;link href=&quot;src/Style/JBreeze.css&quot; rel=&quot;stylesheet&quot; /&gt;
+                    &lt;script src=&quot;src/JBreeze.js&quot;&gt;&lt;/script&gt;
+                </pre>
+                1.快速构建一个窗口,并且赋予可拖动功能
+                <pre title="code" class="brush:js;">
+                    var WF = new JBreeze.GUI.Frame();//创建一个窗口
+                    WF.EF_baseMove(true);//添加可拖动效果
+                </pre>
+                <script type="text/javascript">
+                    function tst1() {
+                        var WF = new JBreeze.GUI.Frame();
+                        WF.EF_baseMove(true);
+                        WF.setCss({ "z-index": 200 });
+                        WF.setPositionXY(400, 2200);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="tst1()" /><br />
+
+                <br />
+                <br />
+                2.快速构建一个对话框,赋予可拖动效果，并且绑定确定按钮
+                <pre title="code" class="brush:js;">
+                        var msg = new JBreeze.GUI.MSG(null, "测试", "JBreeze MsgBox!!");//创建一个对话框
+                        msg.EF_baseMove(true);//添加可拖动效果
+                        msg.onConfirm(function () {//绑定确定按钮事件
+                            alert("您点击了确定按钮");
+                        });
+                </pre>
+                <script type="text/javascript">
+                    function tst2() {
+                        var msg = new JBreeze.GUI.MSG(null, "测试", "JBreeze MsgBox!!");
+                        msg.EF_baseMove(true);
+                        msg.onConfirm(function () {
+                            alert("您点击了确定按钮");
+                        });
+                        msg.setPositionXY(400, 2300);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="tst2()" /><br />
+
+                <br />
+                <br />
+                3.利用GUI基本控件，创建一个登陆框
+                <pre title="code" class="brush:js;">
+                    var login = new JBreeze.GUI.Frame();//创建一个窗体
+                    login.setSize(400,270);//设置长宽
+                    login.JBTitle_.setTitleName("Login");//设置名字
+
+                    var names = new JBreeze.GUI.Text(null, "name:");//创建一个用户名框
+                    var passwd = new JBreeze.GUI.Text(null, "password:");//创建一个密码框
+                    passwd.JBlabeName_.setWidth(100);//设置字体宽度
+                    names.setPositionXY(50, 60);//设置用户名框位置
+                    passwd.setPositionXY(10, 80);//设置密码框位置
+
+                    var buLogin = new JBreeze.GUI.Button(null, "登陆");//创建一个登陆按钮
+                    buLogin.setSize(100, 35);//设置长宽
+                    buLogin.setPositionXY("35%",120);//设置位置
+           
+
+                    login.EF_baseMove(true);//可移动
+                    login.append(names);//将各元素加入窗体
+                    login.append(passwd);
+                    login.append(buLogin);
+                </pre>
+                <script type="text/javascript">
+                    function tst3() {
+                        var login = new JBreeze.GUI.Frame();//创建一个窗体
+                        login.setSize(400, 270);//设置长宽
+                        login.JBTitle_.setTitleName("Login");//设置名字
+
+                        var names = new JBreeze.GUI.Text(null, "name:");//创建一个用户名框
+                        var passwd = new JBreeze.GUI.Text(null, "password:");//创建一个密码框
+                        passwd.JBlabeName_.setWidth(100);//设置字体宽度
+                        names.setPositionXY(50, 60);//设置用户名框位置
+                        passwd.setPositionXY(10, 80);//设置密码框位置
+
+                        var buLogin = new JBreeze.GUI.Button(null, "登陆");//创建一个登陆按钮
+                        buLogin.setSize(100, 35);//设置长宽
+                        buLogin.setPositionXY("35%", 120);//设置位置
+
+
+                        login.EF_baseMove(true);//可移动
+                        login.append(names);//将各元素加入窗体
+                        login.append(passwd);
+                        login.append(buLogin);
+                        login.setPositionXY(500, 2400);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="tst3()" /><br />
+
+                <br />
+                <br />
+                4.利用JBreeze.extendOBJ()函数封装上面构建的模块，然后我们实例化一个对象
+                <pre title="code" class="brush:js;">
+                        JBreeze.extendOBJ({
+                            Login: function () {
+
+                           /*----[例3的代码]-----*/
+
+                                return login;//那个登陆框
+                            }
+                        });
+
+                        var LG=new JBreeze.GUI.Login();//最后我们运行一个实例
+                </pre>
+                <script type="text/javascript">
+                    function tst4() {
+                        JBreeze.extendOBJ({
+                            Login: function () {
+
+                                var login = new JBreeze.GUI.Frame();//创建一个窗体
+                                login.setSize(400, 270);//设置长宽
+                                login.JBTitle_.setTitleName("Login");//设置名字
+
+                                var names = new JBreeze.GUI.Text(null, "name:");//创建一个用户名框
+                                var passwd = new JBreeze.GUI.Text(null, "password:");//创建一个密码框
+                                passwd.JBlabeName_.setWidth(100);//设置字体宽度
+                                names.setPositionXY(50, 60);//设置用户名框位置
+                                passwd.setPositionXY(10, 80);//设置密码框位置
+
+                                var buLogin = new JBreeze.GUI.Button(null, "登陆");//创建一个登陆按钮
+                                buLogin.setSize(100, 35);//设置长宽
+                                buLogin.setPositionXY("35%", 120);//设置位置
+
+
+                                login.EF_baseMove(true);//可移动
+                                login.append(names);//将各元素加入窗体
+                                login.append(passwd);
+                                login.append(buLogin);
+
+                                return login;//那个登陆框
+                            }
+                        });
+
+                        var LG = new JBreeze.GUI.Login();//最后我们运行一个实例
+                        LG.setPositionXY(500, 2750);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="tst4()" /><br />
+
+            </div>
+        </div>
+        <div id="toB1">
+            <div class="dataH1">对象的创建</div>
+            <div class="Dpage">
+                <br />
+                <span>JBreeze提供了丰富的对象创建方式，凡是JBreeze对象，都可以使用JBreeze的一切属性和方法</span>
+                <br />
+                1.使用new的方式,可创建JBreeze对象，JBreeze提供了GUI基础组件<br />
+                <pre title="code" class="brush:js;">
+                    var jbobj = new JBreeze.GUI.Frame();//创建一个Frame()
+                </pre>
+                <br />
+                <br />
+                <br />
+                2.使用JBreeze.OBJ()的方式创建JBreeze对象,针对html标签<br />
+                <pre title="code" class="brush:js;">
+                     var jbobj = new JBreeze.OBJ(null, "div");//创建一个div的JBreeze对象
+                </pre>
+                <br />
+                <br />
+                <br />
+                3.如果你已经用html构建好一个基础结构,或者使用像JQuery等其他框架创建好对象,<br />
+                那么您也可以使用JBreeze("ID名")的方式创建JBreeze对象<br />
+                <pre title="code" class="brush:js;">
+                    &lt;body&gt;
+                        &lt;div id=&quot;A&quot; style=&quot;width:100px; height:100px; background-color:#969490;&quot;&gt; &lt;/div&gt;
+
+                            &lt;script type=&quot;text/javascript&quot;&gt;
+                                var jbobj = JBreeze(&quot;A&quot;);//注意没有new,
+                                jbobj.EF_isShaDow();//因为是JBreeze对象，所以可以使用JBreeze特效,这里我们给于阴影效果
+                                jbobj.EF_baseMove(true);//给这个div可拖动的效果
+                            &lt;/script&gt;
+                    &lt;/body&gt;
+                </pre>
+                <br />
+                效果如下(用鼠标尝试拖动):<br />
+                <!--演示-->
+                <div style="height: 130px">
+                    <div id="A" style="width: 100px; height: 100px; background-color: #969490;"></div>
+                    <script type="text/javascript">
+                        var jbobj = JBreeze("A");//注意没有new,
+                        jbobj.EF_isShaDow();//因为是JBreeze对象，所以可以使用JBreeze特效,这里我们给于阴影效果
+                        jbobj.EF_baseMove(true);//给这个div可拖动的效果
+                    </script>
+                </div>
+
+                <!--演示结束-->
+                <br />
+                <br />
+                <br />
+            </div>
+        </div>
+        <div id="toB2">
+            <div class="dataH1">对象的操作</div>
+            <div class="Dpage">
+                <br />
+                <span>JBreeze为每个JB对象提供了方便操作的方法和属性，列表如下:</span>
+                <br />
+                <br />
+                <h1>方法</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width: 25%">方法</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>setID(idStr)<br />
+                                getID()</td>
+                            <td>设置和得到ID值 既HTML DOM的id属性</td>
+                        </tr>
+                        <tr>
+                            <td>setClassName(className)</td>
+                            <td>html dom的class属性,用于CSS选择样式</td>
+                        </tr>
+                        <tr>
+                            <td>innerHTML(htmlStr)</td>
+                            <td>和innerHTML对应</td>
+                        </tr>
+                        <tr>
+                            <td>setSize(width, height)</td>
+                            <td>设置宽度和高度,可接收的参数:数值:px,   如(100,"100px"),前面的100也是100px<br />
+                                字符串:如"100px","10%","1em"等</td>
+                        </tr>
+                        <tr>
+                            <td>setWidth(height)<br />
+                                getWidth()</td>
+                            <td>设置和得到宽度，参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>setHeight(height)<br />
+                                getHidth()</td>
+                            <td>设置和得到高度，参数形式同上</td>
+                        </tr>
+                        <tr>
+                            <td>setPositionXY(Left, Top)</td>
+                            <td>设置位置，如果没有设置position，默认为relative
+                            </td>
+                        </tr>
+                        </tr>
+                    <tr>
+                        <td>setPositionX(Left)   setPositionY(Top)</td>
+                        <td>设置水平和垂直位置，如果没有设置position，默认为relative
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <h1>属性</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width: 25%">属性</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>_name</td>
+                            <td>私有属性,JBreeze对象名称</td>
+                        </tr>
+                        <tr>
+                            <td>ID</td>
+                            <td>就是HTML节点的id值，一般没有设的话，由JBreeze统一管理，编号从JB1000开始</td>
+                        </tr>
+                        <tr>
+                            <td>dom</td>
+                            <td>指向原生的HTML DOM,JBreeze没有提供的功能,你可以使用原生JS编写</td>
+                        </tr>
+                        <tr>
+                            <td>JB+单词+_ 如:JBTitle_</td>
+                            <td>JBreeze GUI属性，指引内部子对象,方便开发者快速定位JB内部JB子对象</td>
+                        </tr>
+                        <tr>
+                            <td>JB+任意字符+S 如:JBTitleS</td>
+                            <td>JBreeze GUI动态属性(为数组)，该属性由append(),removeAll(),removeThis()等函数动态创建和移除<br />
+                                比如:var frame = new JBreeze.GUI.Frame(); frame.JBTitleS[0].JBLabelS[0].SetTextValue();可动态导航到<br />
+                                窗体的标题栏的文本对象,该链式动态属性，目前只有VS2012可动态监测出并智能提示，能提高你的编程速度。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>JB+html名_+空或其他字符 如:JBTitleS</td>
+                            <td>JBreeze.OBJ()产生的对象名
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <h1>全局JB对象及其静态方法</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width: 25%">对象或方法</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.JBBody</td>
+                            <td>对body的封装，是个JB对象</td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.onReady()</td>
+                            <td>事件，和JQuery的Ready()功能一样，在onload()事件前执行</td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.ImageLoad(urlArry)</td>
+                            <td>预加载图像.....
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.trim(str)</td>
+                            <td>去除首尾空格</td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.styleToCss(StyleStr)</td>
+                            <td>将驼峰式转换成CSS样式  如"backgroundColor"--->"background-color"</td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.cssToStyle(cssStr)</td>
+                            <td>将CSS样式写法转换成驼峰式 如"background-color"-->"backgroundColor"
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.getCSSValue(obj, nameStr)</td>
+                            <td>得到CSS属性值，检查顺序为，stly，如果没有找到，再查找样式表<br />
+                                obj为HTML dom,这里不是JB对象
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.getHttpRequest()</td>
+                            <td>得到一个兼容性的XMLHttpRequest
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div id="toB3">
+            <div class="dataH1">CSS操作函数</div>
+            <div class="Dpage">
+                <br />
+                <span>1.setCss(cssObj)</span><br />
+                JBreeze setCss()函数可接收各种参数<br />
+                参数可为"width:200px; height:100%;" 字符串格式，也可以为{"width":"200px", "height":"100%;" }<br />
+                或者为{width:"200px", height:"100%;" }，但要注意{"background-color":"#000"}等中间有-符号的要加引号<br />
+                当setCss("");表示清除style的所有内容
+                <pre title="code" class="brush:js;">
+                    var jbobj = new JB.GUI.Frame();
+                    jbobj.setCss("width:200px; height:100%;");//正确格式  但要清除以前设置的style，不推荐使用
+                    jbobj.setCss({ "width": "200px", "height": "100%;", "background-color": "#000" });//正确格式
+                    jbobj.setCss({ width: "200px", height: "100%;" });//正确格式
+                </pre>
+                <br />
+                <br />
+                <span>1.setCss(cssName)</span><br />
+                参数为空时返回style属性的值,有参数时，请按如下格式:"background-color"和"backgroundColor"都可以<br />
+                <pre title="code" class="brush:js;">
+                    jbobj.getCss();
+                    jbobj.getCss("background-color");
+                    jbobj.getCss("backgroundColor");
+                </pre>
+
+            </div>
+        </div>
+
+        <div id="toB4">
+            <div class="dataH1">扩展和模块管理</div>
+            <div class="Dpage">
+                <br />
+                <span>JBreeze.extendOBJ(objEx);</span>
+                <br />
+                JBreeze允许你扩展GUI库，同时你可以方便的使用extendOBJ(objEx)管理和构建你曾经的项目模块<br />
+                只需要一个new下次就可以再次复用<br />
+                <br />
+                <h1>如对本站整体的封装</h1>
+                1.封装导航模块
+                <pre title="code" class="brush:js;">
+                        JBreeze.extendOBJ({DHlist:function (titleName,nameAry,herfAry) {//本站使用的导航模块
+                            var Daohang = new JBreeze.GUI.NavigationBar("DHlist", nameAry, herfAry, true,true);
+                            var Dh2 = new JBreeze.OBJ("DH2", "h2", titleName, "Title");
+                            Daohang.addBefore(Dh2, Daohang.JBbar_);
+
+                            Daohang.JBbar_.setClassName("DHlistIn");
+                            return Daohang; //只需要返回父级元素即可
+                        }
+                        });
+                </pre>
+                2.调用导航模块构建页面
+                <pre title="code" class="brush:js;">
+            JBreeze.onReady(function () {
+                /***
+                *-------------创建页面主体结构----------
+                */
+                var A = new JBreeze.GUI.Panel("A");//导航主板
+                var B = new JBreeze.GUI.Panel("B");//导航背景
+                B.append(A);
+                JBreeze.JBBody.append(B);
+
+                /***
+                *-------------创建各个元素----------
+                */
+                var logo = new JBreeze.GUI.Label("logoFont", "JBreeze");
+                var DH = new Array();
+                DH[0] = new JBreeze.GUI.DHlist("概况",
+                    ["什么是JBreeze", "授权", "协助编程时的提示", "几个简单的例子"],
+                    ["#toA1", "#toA2", "#toA3", "#toA4"]);
+                DH[1] = new JBreeze.GUI.DHlist("JB对象及其操作",
+                    ["对象的创建", "对象的操作", "CSS操作函数", "扩展和模块管理"],
+                    ["#toB1", "#toB2", "#toB3", "#toB4", ]);
+                DH[2] = new JBreeze.GUI.DHlist("事件和特效",
+                    ["JBreeze事件管理", "基本特效"],
+                    ["#toC1", "#toC2"]);
+                DH[3] = new JBreeze.GUI.DHlist("AJAX",
+                    ["XML和JSON", "远程文件加载"],
+                    ["#toD1", "#toD2"]);
+
+                /***
+                *-------------添加已创建元素----------
+                */
+                A.append(logo);
+                for (var i = 0; i < DH.length; i++) A.append(DH[i]);
+            });
+                </pre>
+                3.再整体封装
+             <pre title="code" class="brush:js;">
+            JBreeze.extendOBJ({DHlist:function (titleName,nameAry,herfAry) {//本站使用的导航模块
+                var Daohang = new JBreeze.GUI.NavigationBar("DHlist", nameAry, herfAry, true,true);
+                var Dh2 = new JBreeze.OBJ("DH2", "h2", titleName, "Title");
+                Daohang.addBefore(Dh2, Daohang.JBbar_);
+
+                Daohang.JBbar_.setClassName("DHlistIn");
+                return Daohang;
+            }
+            });
+            JBreeze.extendOBJ({
+                JBreezeWeb: function () {
+                    /***
+                    *-------------创建页面主体结构----------
+                    */
+                    var A = new JBreeze.GUI.Panel("A");//导航主板
+                    var B = new JBreeze.GUI.Panel("B");//导航背景
+                    B.append(A);
+                    JBreeze.JBBody.append(B);
+
+                    /***
+                    *-------------创建各个元素----------
+                    */
+                    var logo = new JBreeze.GUI.Label("logoFont", "JBreeze");
+                    var DH = new Array();
+                    DH[0] = new JBreeze.GUI.DHlist("概况",
+                        ["什么是JBreeze", "授权", "协助编程时的提示", "几个简单的例子"],
+                        ["#toA1", "#toA2", "#toA3", "#toA4"]);
+                    DH[1] = new JBreeze.GUI.DHlist("JB对象及其操作",
+                        ["对象的创建", "对象的操作", "CSS操作函数", "扩展和模块管理"],
+                        ["#toB1", "#toB2", "#toB3", "#toB4", ]);
+                    DH[2] = new JBreeze.GUI.DHlist("事件和特效",
+                        ["JBreeze事件管理", "基本特效"],
+                        ["#toC1", "#toC2"]);
+                    DH[3] = new JBreeze.GUI.DHlist("AJAX",
+                        ["XML和JSON", "远程文件加载"],
+                        ["#toD1", "#toD2"]);
+
+                    /***
+                    *-------------添加已创建元素----------
+                    */
+                    A.append(logo);
+                    for (var i = 0; i < DH.length; i++) A.append(DH[i]);
+                    return JBreeze.JBBody;
+                }
+            });
+
+            JBreeze.onReady(function () {//测试调用  我们封装的对象
+                var JBweb = new JBreeze.GUI.JBreezeWeb();
+
+            });
+             </pre>
+                点击运行后，右键查看源码，再看整体封装效果<br />
+                <input type="button" value="运行" onclick="window.open('data.html')" />
+                <br />
+
+
+            </div>
+        </div>
+
+        <div id="toC1">
+            <div class="dataH1">JBreeze事件管理</div>
+
+            <div class="Dpage">
+                <br />
+                <span>JBreeze模仿C#的事件委托机制，可动态的添加事件，和删除事件，并且维持一个事件列表</span>
+                <br />
+                <br />
+                1.绑定事件<br />
+                <pre title="code" class="brush:js;">
+                    var JBF = new JBreeze.GUI.Frame();
+                    JBF.onclick(function () {
+                        alert("ok");
+                    });
+                    //或者
+                    var afun = function () { alert("ok") };
+                    JBF.onclick(afun);
+                </pre>
+                <script type="text/javascript">
+                    function cts1() {
+                        var JBF = new JBreeze.GUI.Frame();
+                        JBF.onclick(function () {
+                            alert("ok");
+                        });
+                        JBF.setPositionXY(500, 7300);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="cts1()" /><br />
+                <br />
+                <br />
+                2.事件流<br />
+                <pre title="code" class="brush:js;">
+                    var JBF = new JBreeze.GUI.Frame();
+                    var a = function () { alert("a") };
+                    var b = function () { alert("b") };
+                    var c = function () { alert("c") };
+                    JBF.onclick(a);
+                    JBF.onclick(b);
+                    JBF.onclick(c);
+                </pre>
+                <script type="text/javascript">
+                    function cts2() {
+                        var JBF = new JBreeze.GUI.Frame();
+                        var a = function () { alert("a") };
+                        var b = function () { alert("b") };
+                        var c = function () { alert("c") };
+                        JBF.onclick(a);
+                        JBF.onclick(b);
+                        JBF.onclick(c);
+                        JBF.setPositionXY(500, 7300);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="cts2()" /><br />
+                <br />
+                <br />
+                3.删除事件<br />
+                <pre title="code" class="brush:js;">
+                    var JBF = new JBreeze.GUI.Frame();
+                    var a = function () { alert("a") };
+                    var b = function () { alert("b") };
+                    var c = function () { alert("c") };
+                    JBF.onclick(a);
+                    JBF.onclick(b);
+                    JBF.onclick(c);
+                    JBF.onclick(null, b);
+                </pre>
+                <script type="text/javascript">
+                    function cts3() {
+                        var JBF = new JBreeze.GUI.Frame();
+                        var a = function () { alert("a") };
+                        var b = function () { alert("b") };
+                        var c = function () { alert("c") };
+                        JBF.onclick(a);
+                        JBF.onclick(b);
+                        JBF.onclick(c);
+                        JBF.onclick(null, b);
+                        JBF.setPositionXY(500, 7500);
+                    }
+                </script>
+                <input type="button" value="运行" onclick="cts3()" /><br />
+                <br />
+                <br />
+                <h1>事件列表</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width: 35%">事件</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>JBreeze.onReady(funOption, clearEvent)</td>
+                            <td>类似JQ的Ready事件<br />
+                                funOption:响应函数指针<br />
+                                clearEvent:true时清除所有事件<br />
+                                clearEvent:响应函数指针 时，清除这响应个函数
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>onclick(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>ondblclick(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onmousedown(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onmousemove(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onmouseup(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onmouseout(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+
+                        <tr>
+                            <td>onmouseover(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onkeydown(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onkeypress(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onkeyup(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                        <tr>
+                            <td>onload(funOption, clearEvent)</td>
+                            <td>参数同上</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="height: 30px;"></div>
+            </div>
+        </div>
+        <div id="toC2">
+            <div class="dataH1">基本特效</div>
+            <div class="Dpage">
+                <span>JBreeze的特效列表如下:</span>
+                <br />
+                <br />
+                <h1>JBreeze特效</h1>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th style="width: 35%">特效</th>
+                            <th>描述</th>
+                        </tr>
+                        <tr>
+                            <td>EF_isShaDow(color, radiu)</td>
+                            <td>阴影效果<br />
+                                color:阴影颜色<br />
+                                radiu:阴影半径
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EF_baseMove(isCanMove, fatherDeep)</td>
+                            <td>拖动效果<br />
+                                isCanMove:true为可拖动，false为不可拖动<br />
+                                fatherDeep:true时为父级对象可拖动，默认为false
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EF_XCenter()</td>
+                            <td>水平居中<br />
+                                必须设置长宽，次效果才有效
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EF_XYCenter(isFixed)</td>
+                            <td>水平垂直居中<br />
+                                isFixed true 为屏幕中间不随页面滚动 有默认值<br />
+                                必须设置长宽，次效果才有效
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>EF_loading(html)</td>
+                            <td>图像等加载效果<br />
+                                仅用于&lt;body&gt;, &lt;frame&gt;, &lt;frameset&gt;, &lt;iframe&gt;, &lt;img&gt;, &lt;link&gt;, &lt;script&gt;<br />
+                                html 为你自定义的加载模块
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="height: 30px;"></div>
+        </div>
+
+        <div id="toD1">
+            <div class="dataH1">XML和JSON</div>
+            <div class="Dpage">
+                <br />
+                <span>1.Get(url, isXML, callback)</span><br />
+                用于get方式的AJAX请求<br />
+                +<span>url:</span>请求地址<br />
+                +<span>isXML:</span>true为XML类型<br />
+                +<span>callback:</span>成功后执行的函数 形式为function(data):data为请求后的数据，JSON为JSON对象，XML为responseXML
+                <br />
+                <br />
+                <pre title="code" class="brush:js;">
+                    JBreeze.Get("test.php",false, function (data) {
+                        alert(data.name);//data为JSON对象
+                    });
+                </pre>
+                <br />
+                <span>2.Post(url, isXML, data, callback)</span><br />
+                用于POST方式的AJAX请求<br />
+                +<span>url:</span>请求地址<br />
+                +<span>isXML:</span>true为XML类型<br />
+                +<span>data:</span>data 参数对象 {"名字":"值","名字":"值".....}<br />
+                +<span>callback:</span>成功后执行的函数 形式为function(data):data为请求后的数据，JSON为JSON对象，XML为responseXML
+                <br />
+                <pre title="code" class="brush:js;">
+                    JBreeze.Post("test.php",false,{a:1,b:"test"}, function (data) {
+                        alert(data.name);//data为JSON对象
+                    });
+                </pre>
+            </div>
+            <div style="height: 30px;"></div>
+        </div>
+        <div id="toD2">
+            <div class="dataH1">远程文件加载</div>
+            <div class="Dpage">
+                <br />
+                <span>Load(url, callback)</span><br />
+                您可以使用此函数加载远程或者服务端的文本文件<br />
+                +<span>url:</span>请求地址,只能为GET方式请求<br />
+                +<span>callback:</span>成功后执行的函数 形式为function(data):data为请求后的文本数据
+                <br />
+                <pre title="code" class="brush:js;">
+                    JBreeze.Load("file.txt",function (data) {
+                        test.innerHTML(data);//将数据放入HTML DOM
+                    });
+                </pre>
+            </div>
+            <div style="height: 30px;"></div>
+        </div>
+        <div id="footer">
+            <div class="line"></div>
+            <p>Copyright 2013 - BreezeDust All Rights Reserved ,BreezeDust.com</p>
+                        <!--统计-->
+                            <script type="text/javascript">
+                                var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+                                document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F9e9dc6b25f8e71fc6fe20a2c65b3ed4a' type='text/javascript'%3E%3C/script%3E"));
+                            </script>
+                        <!--结束-->
+        </div>
+    </div>
+</body>
+</html>
+
+
+

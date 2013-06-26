@@ -1,0 +1,136 @@
+﻿.JBFrame {
+    width:500px;
+    height:309px;
+    background-color:#AEBDAE;
+    -moz-box-shadow: 3px 3px 4px #454D47;
+    -webkit-box-shadow: 3px 3px 4px #454D47;
+    box-shadow: 3px 3px 4px #454D47;
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#454D47')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#454D47');
+    overflow:hidden;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    padding:0px;
+    position:absolute;
+}
+.JBTitle {
+    position:relative;
+    width:100%;
+    height:12%;
+    background-color:#454D47;
+    margin:0px;
+    display:block;
+}
+.JBTitle_close {
+    width:12px;
+    font-size:80%;
+    color:#79857B;
+    padding:0px;
+    position:relative;
+    margin:0px;
+    right:0px;
+    top:-15%;
+    left:95%;
+    font-family:'Microsoft YaHei';
+    font-weight:bold;
+}
+    .JBTitle_close:hover {
+        color:#AEBDAE;
+        cursor:pointer;
+    }
+.JBLabel {
+    position:relative;
+    width:40%;
+    height:40%;
+    color:#79857B;
+    font-size:100%;
+    left:2%;
+    top:23%;
+    font-family:'Microsoft YaHei';
+    font-weight:bold;
+
+
+}
+.JBLabel_1 {
+    position:relative;
+    color:#454D47;
+    font-size:14px;
+    font-family:'Microsoft YaHei';
+    font-weight:bold;
+
+}
+.JBText {
+
+    width:100%;
+    
+
+}
+.JBText div {
+    width:60px;
+    display:inline-block;
+    text-align:right;
+    padding:0px;
+    padding-right:10px;
+}
+.JBText input{
+    position:relative;
+    background-color:#AEBDAE;
+    border:#454D47 solid 1px;
+    width:150px;
+    height:20px;
+    padding-left:3px;
+    padding-right:3px;
+    padding-top:3px;
+    font-size:13px;
+    font-weight:bold;
+    font-family:'Microsoft YaHei';
+    color:#454D47;
+}
+.JBButtont {
+    position:relative;
+    background-color:#454D47;
+    border:#454D47 solid 1px;
+    width:100px;
+    height:30px;
+    text-align:center;
+    -moz-box-shadow: 1px 1px 2px #454D47;
+    -webkit-box-shadow: 1px 1px 2px #454D47;
+    box-shadow: 1px 1px 2px #454D47;
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#454D47')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=1, Direction=135, Color='#454D47');
+    -webkit-border-radius:5px;
+    -moz-border-radius:5px;
+    color:#79857B;
+    font-size:13px;
+    font-family:'Microsoft YaHei';
+    font-weight:bold;
+}
+    .JBButtont:hover {
+        background-color:#79857B;
+        color:#454D47;
+        
+        
+    }
+
+.JBNavigationBarA{
+        background-color:#454D47;
+        text-align:center;
+        margin:0px;
+        width:78px;
+        height:38px;  
+        display:block;
+        float:left;
+        text-decoration:none;
+        color:#AEBDAE;
+        line-height:38px;
+        font-size:13px;
+        font-weight:bold;
+        font-family:'Microsoft YaHei';
+}
+.JBNavigationBarA:hover {
+        background-color:#79857B;
+}
