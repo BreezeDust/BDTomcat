@@ -1,6 +1,8 @@
 package com.BDTomcat.Control;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -13,7 +15,7 @@ public class HttpConnector implements Runnable{
 	public boolean running=true;
 	private Queue<HttpProcessor> threadList=new LinkedList();
 	public HttpConnector(){
-		
+		this.initThreadList();
 	}
 	/****
 	 * 初始化线程池
@@ -27,9 +29,24 @@ public class HttpConnector implements Runnable{
 			cons=GlobalSet.minThread;
 		}
 		for(int con=0;con<cons;con++){
-			HttpProcessor processer=new HttpProcessor(this);
-			threadList.offer(processer);
+			HttpProcessor processor=new HttpProcessor(this);
+			processor.start();
+			threadList.offer(processor);
 		}
+		System.out.println("ThreadPool is ready!!");
+	}
+	public void recycle(HttpProcessor processor){
+		threadList.offer(processor);
+	}
+	/***
+	 * 从线程池中返回一个HttpProcessor
+	 * @return
+	 */
+	public HttpProcessor creatHttpProcessor(){
+		if(threadList.size()>0){
+			 return threadList.poll();
+		}
+		return null;
 	}
 	@Override
 	public void run() {
@@ -44,22 +61,25 @@ public class HttpConnector implements Runnable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		int con=1;
 		while(running){
 			try {
+				
 				Socket socket = serverSocket.accept();
+				HttpProcessor processor=creatHttpProcessor();
+				System.out.println("======="+con++);
+				if(processor==null){
+					System.out.println("out Tread!!!");
+				}
+				else{
+					processor.assign(socket);
+				}
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			for(int con=0;con<100;con++){
-				System.out.println("a"+con);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			
 		}
 	}
 	public void start(){
