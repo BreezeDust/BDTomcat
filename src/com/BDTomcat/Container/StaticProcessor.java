@@ -32,7 +32,7 @@ public class StaticProcessor {
 	    try {
 	      File file = new File(GlobalSet.WEBROOT, request.getRequestURI());
 	     if (file.exists()) {
-	    	  String fileExt= request.getRequestURI().split("[.]")[1];
+	    	  String fileExt=request.getFileExp().toLowerCase();
 	    	  if(fileExt.equals("html") || fileExt.equals("css") || fileExt.equals("js")){
 	    		  //文本
 	    		  Scanner cin=new Scanner(file);

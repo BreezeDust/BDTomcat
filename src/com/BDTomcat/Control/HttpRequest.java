@@ -6,8 +6,11 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.Principal;
 import java.util.Enumeration;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletInputStream;
@@ -18,6 +21,25 @@ import javax.servlet.http.HttpSession;
 public class HttpRequest implements HttpServletRequest{
 	private InputStream input;
 	private StringBuffer request=new StringBuffer(2048);
+	private String requestURI="";
+	private String[] requestDirArr=null;
+	private String fileExp=null;
+	private String queryString=null;
+	private String[] parameterS=null;;
+	private String fileName=null;
+	
+	private List<String> lineList=new LinkedList();;
+	private String method=null;
+	public String getFileName() {
+		return fileName;
+	}
+	public String getFileExp() {
+		return fileExp;
+	}
+	public String[] getRequestDirArr() {
+		return requestDirArr;
+	}
+
 	byte[] buffer = new byte[2048];
 
 	  public HttpRequest(InputStream input) {
@@ -29,6 +51,7 @@ public class HttpRequest implements HttpServletRequest{
 	 * 将请求写入缓冲区
 	 */
 	private void init(){
+		//将请求写入缓冲区
 	    int con;
 	    try {
 	      con = input.read(buffer);
@@ -39,8 +62,47 @@ public class HttpRequest implements HttpServletRequest{
 	    }
 	    for (int con1=0; con1<con; con1++) {
 	      request.append((char) buffer[con1]);
-	    }	
+	    }
+	    getHTTPLine();//分割每行
 	    //System.out.println(request.toString());
+	    //初始 化URI
+	    getRequestURIInit();
+	    if(requestURI!=null && !requestURI.equals("")){
+	    	//根据?#把请求分割
+	    	String str=new String(requestURI);
+	    	int index1,index2;
+	    	index1 = str.indexOf('?');
+	    	index2=str.indexOf('#');
+	    	if(index2>0){
+	    		str=str.substring(0,index2);
+	    	}
+	    	if(index1>0){
+	    		queryString=str.substring(index1+1,str.length());
+	    		str=str.substring(0,index1);
+	    	}    	
+		    requestDirArr=str.split("/");
+		    
+		    //得到扩展名
+		    String[] tmpStrs= requestDirArr[requestDirArr.length-1].split("[.]");
+		    if(tmpStrs.length>1){
+		    	fileExp=tmpStrs[1];
+		    	
+		    }
+		    else{
+		    	fileExp=null;
+		    }
+		    fileName=tmpStrs[0];
+		    
+	    }
+
+	}
+	public void getHTTPLine(){
+		String[] lineLists=request.toString().split("[\r\n]");
+		for(int con=0;con<lineLists.length;con++){
+			if(!lineLists[con].equals("")){
+				lineList.add(lineLists[con]);
+			}
+		}
 	}
 	@Override
 	public Object getAttribute(String arg0) {
@@ -93,6 +155,18 @@ public class HttpRequest implements HttpServletRequest{
 	@Override
 	public String getParameter(String arg0) {
 		// TODO Auto-generated method stub
+		String tmpStr=getQueryString();
+		if(tmpStr==null) return null;
+		if(parameterS==null){
+			parameterS=tmpStr.split("[&]");
+		}
+		for(int con=0;con<parameterS.length;con++){
+			if(!parameterS[con].equals("")){
+				if(parameterS[con].matches(".*"+arg0+".*")){
+					return parameterS[con].split("[=]")[1].trim();
+				}
+			}
+		}
 		return null;
 	}
 
@@ -244,7 +318,7 @@ public class HttpRequest implements HttpServletRequest{
 	@Override
 	public String getMethod() {
 		// TODO Auto-generated method stub
-		return null;
+		return method;
 	}
 
 	@Override
@@ -261,8 +335,14 @@ public class HttpRequest implements HttpServletRequest{
 
 	@Override
 	public String getQueryString() {
-		// TODO Auto-generated method stub
-		return null;
+		if(method.toLowerCase().equals("post")){
+			String str=lineList.get(lineList.size()-1);
+			if(str.matches(".*=.*")){
+				queryString=str+"&"+queryString;
+			}
+
+		}
+		return queryString;
 	}
 
 	@Override
@@ -270,18 +350,15 @@ public class HttpRequest implements HttpServletRequest{
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public void getRequestURIInit(){
+		String[] str=lineList.get(0).split(" ");
+		method=str[0];
+		requestURI=str[1];
 
+	}
 	@Override
 	public String getRequestURI() {
-	    int index1, index2;
-	    String requestString=request.toString();
-	    index1 = requestString.indexOf(' ');
-	    if (index1 != -1) {
-	      index2 = requestString.indexOf(' ', index1 + 1);
-	      if (index2 > index1)
-	        return requestString.substring(index1 + 1, index2);
-	    }
-	    return null;
+		return requestURI;
 	}
 
 	@Override

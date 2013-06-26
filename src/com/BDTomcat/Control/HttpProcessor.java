@@ -56,12 +56,14 @@ public class HttpProcessor implements Runnable{
         
         if(request.getRequestURI()!=null && !request.getRequestURI().equals("")){
         	System.out.println("run"+request.getRequestURI());
-        	
-        	//StaticProcessor processor=new StaticProcessor();
-			//processor.process(request, response);
-        	
-        	ServletProcessor processor=new ServletProcessor();
-        	processor.process(request, response);
+        	if(request.getFileExp()==null){
+            	ServletProcessor processor=new ServletProcessor();
+            	processor.process(request, response);       		
+        	}
+        	else{
+            	StaticProcessor processor=new StaticProcessor();
+    			processor.process(request, response);     		
+        	}
         }
         
 

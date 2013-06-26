@@ -16,9 +16,11 @@ public class test implements Servlet {
     PrintWriter out = response.getWriter(); 
     out.println("<html>");
     out.println("<head>");
+    out.println("<link href='css//test.css' rel='stylesheet' //>");
     out.println("</head>");
     out.println("<body>");
-    out.println("<h1>Hello BDTomcat</h1>");
+    out.println("<h1>"+request.getParameter("tag")+"</h1>");
+    out.println("<h1>"+request.getParameter("bb")+"</h1>");
     out.println("</body>");
     out.println("</html>");
  

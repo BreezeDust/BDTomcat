@@ -24,9 +24,8 @@ public class ServletProcessor {
 	public void process(HttpRequest request, HttpResponse response){
 		this.request=request;
 		this.response=response;
-		String[] URLS=request.getRequestURI().split("[/]");
-		servletName=URLS[URLS.length-1];
-		 
+		servletName=request.getFileName();
+		String[] URLS=request.getRequestDirArr();
 		for(int con=0;con<URLS.length-1;con++){
 			if(!URLS[con].equals("")){
 				servletDir+=URLS[con]+"\\";
