@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.BDTomcat.Container.ServletProcessor;
 import com.BDTomcat.Container.StaticProcessor;
 
 public class HttpProcessor implements Runnable{
@@ -40,7 +41,7 @@ public class HttpProcessor implements Runnable{
 		isAssign=false;
 		return socket;
 	}
-	private void processor(Socket socket){
+	private void process(Socket socket){
 		InputStream input = null;
 	    OutputStream output = null;
         try {
@@ -55,9 +56,12 @@ public class HttpProcessor implements Runnable{
         
         if(request.getRequestURI()!=null && !request.getRequestURI().equals("")){
         	System.out.println("run"+request.getRequestURI());
-        	StaticProcessor processor=new StaticProcessor();
-			processor.process(request, response);
-
+        	
+        	//StaticProcessor processor=new StaticProcessor();
+			//processor.process(request, response);
+        	
+        	ServletProcessor processor=new ServletProcessor();
+        	processor.process(request, response);
         }
         
 
@@ -68,7 +72,7 @@ public class HttpProcessor implements Runnable{
 		while(!isStop){
 			Socket socket=waitSocket(); //阻塞等待请求
 			if(socket==null) continue;
-			processor(socket);
+			process(socket);
 			try {
 				socket.close();
 			} catch (IOException e) {

@@ -15,9 +15,22 @@ import com.BDTomcat.Global.GlobalSet;
 
 
 public class HttpResponse implements HttpServletResponse {
+	private DBPrintWriter DBwriter;
+	public DBPrintWriter getDBwriter() {
+		return DBwriter;
+	}
+
+	public void setDBwriter(DBPrintWriter dBwriter) {
+		DBwriter = dBwriter;
+	}
 
 	private OutputStream output;
 
+
+	public HttpResponse(OutputStream output) {
+		this.output = output;
+	}
+	
 	public OutputStream getOutput() {
 		return output;
 	}
@@ -25,11 +38,6 @@ public class HttpResponse implements HttpServletResponse {
 	public void setOutput(OutputStream output) {
 		this.output = output;
 	}
-
-	public HttpResponse(OutputStream output) {
-		this.output = output;
-	}
-
 	@Override
 	public void flushBuffer() throws IOException {
 		// TODO Auto-generated method stub
@@ -62,8 +70,8 @@ public class HttpResponse implements HttpServletResponse {
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		// TODO Auto-generated method stub
-		return null;
+		DBwriter=new DBPrintWriter(this.output);
+		return DBwriter;
 	}
 
 	@Override
