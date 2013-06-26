@@ -6,6 +6,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+import com.BDTomcat.Container.StaticProcessor;
+
 public class HttpProcessor implements Runnable{
 	private HttpConnector connector=null;
 	private HttpRequest request=null;
