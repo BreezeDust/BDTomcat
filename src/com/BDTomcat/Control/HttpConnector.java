@@ -31,6 +31,7 @@ public class HttpConnector implements Runnable{
 		for(int con=0;con<cons;con++){
 			HttpProcessor processor=new HttpProcessor(this);
 			processor.start();
+			processor.setThreadID(con);
 			threadList.offer(processor);
 		}
 		System.out.println("ThreadPool is ready!!");
@@ -64,14 +65,15 @@ public class HttpConnector implements Runnable{
 		int con=1;
 		while(running){
 			try {
-				
+
 				Socket socket = serverSocket.accept();
 				HttpProcessor processor=creatHttpProcessor();
-				System.out.println("======="+con++);
+				
 				if(processor==null){
 					System.out.println("out Tread!!!");
 				}
 				else{
+					System.out.println("======="+(con++)+"  T:"+processor.getThreadID());
 					processor.assign(socket);
 				}
 				

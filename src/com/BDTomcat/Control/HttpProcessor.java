@@ -10,6 +10,7 @@ import com.BDTomcat.Container.ServletProcessor;
 import com.BDTomcat.Container.StaticProcessor;
 
 public class HttpProcessor implements Runnable{
+	private int threadID=0;
 	private HttpConnector connector=null;
 	private HttpRequest request=null;
 	private HttpResponse response=null;
@@ -18,6 +19,12 @@ public class HttpProcessor implements Runnable{
 	private boolean isStop=false;
 	public HttpProcessor(HttpConnector connector){
 		this.connector=connector;
+	}
+	public int getThreadID() {
+		return threadID;
+	}
+	public void setThreadID(int threadID) {
+		this.threadID = threadID;
 	}
 	public void start(){
 		Thread thread=new Thread(this);
@@ -54,7 +61,7 @@ public class HttpProcessor implements Runnable{
         request=new  HttpRequest(input);
         response=new HttpResponse(output);
         
-        if(request.getRequestURI()!=null && !request.getRequestURI().equals("")){
+        if(!request.isNORequest() && request.getRequestURI()!=null){
         	System.out.println("run"+request.getRequestURI());
         	if(request.getFileExp()==null){
             	ServletProcessor processor=new ServletProcessor();

@@ -27,7 +27,14 @@ public class HttpRequest implements HttpServletRequest{
 	private String queryString=null;
 	private String[] parameterS=null;;
 	private String fileName=null;
+	private String cookieStr=null;
+	private Cookie[] COOKIES=null; 
+	private boolean isNORequest=false;
 	
+	public boolean isNORequest() {
+		return isNORequest;
+	}
+
 	private List<String> lineList=new LinkedList();;
 	private String method=null;
 	public String getFileName() {
@@ -64,36 +71,42 @@ public class HttpRequest implements HttpServletRequest{
 	      request.append((char) buffer[con1]);
 	    }
 	    getHTTPLine();//分割每行
-	    //System.out.println(request.toString());
+	    System.out.println(request.toString());
 	    //初始 化URI
-	    getRequestURIInit();
-	    if(requestURI!=null && !requestURI.equals("")){
-	    	//根据?#把请求分割
-	    	String str=new String(requestURI);
-	    	int index1,index2;
-	    	index1 = str.indexOf('?');
-	    	index2=str.indexOf('#');
-	    	if(index2>0){
-	    		str=str.substring(0,index2);
-	    	}
-	    	if(index1>0){
-	    		queryString=str.substring(index1+1,str.length());
-	    		str=str.substring(0,index1);
-	    	}    	
-		    requestDirArr=str.split("/");
-		    
-		    //得到扩展名
-		    String[] tmpStrs= requestDirArr[requestDirArr.length-1].split("[.]");
-		    if(tmpStrs.length>1){
-		    	fileExp=tmpStrs[1];
-		    	
-		    }
-		    else{
-		    	fileExp=null;
-		    }
-		    fileName=tmpStrs[0];
-		    
+	    if(request.equals("")){
+	    	isNORequest=true;
 	    }
+	    else{
+		    getRequestURIInit();
+		    if(requestURI!=null && !requestURI.equals("")){
+		    	//根据?#把请求分割
+		    	String str=new String(requestURI);
+		    	int index1,index2;
+		    	index1 = str.indexOf('?');
+		    	index2=str.indexOf('#');
+		    	if(index2>0){
+		    		str=str.substring(0,index2);
+		    	}
+		    	if(index1>0){
+		    		queryString=str.substring(index1+1,str.length());
+		    		str=str.substring(0,index1);
+		    	}    	
+			    requestDirArr=str.split("/");
+			    
+			    //得到扩展名
+			    String[] tmpStrs= requestDirArr[requestDirArr.length-1].split("[.]");
+			    if(tmpStrs.length>1){
+			    	fileExp=tmpStrs[1];
+			    	
+			    }
+			    else{
+			    	fileExp=null;
+			    }
+			    fileName=tmpStrs[0];
+			    
+		    }	    	
+	    }
+
 
 	}
 	public void getHTTPLine(){
@@ -282,6 +295,19 @@ public class HttpRequest implements HttpServletRequest{
 	@Override
 	public Cookie[] getCookies() {
 		// TODO Auto-generated method stub
+		Cookie[] cookies=null;
+		if(cookieStr==null){
+			for(int con=0;con<lineList.size();con++){
+				if(lineList.get(con).matches("Cookie.*")){
+					 cookieStr=new String(lineList.get(con));
+					String str=cookieStr.replaceAll("Cookie:", "");
+					str=str.trim();
+					String[] cookieStr=str.split(" ");
+					break;
+				}
+			}
+		}
+		
 		return null;
 	}
 
@@ -351,9 +377,16 @@ public class HttpRequest implements HttpServletRequest{
 		return null;
 	}
 	public void getRequestURIInit(){
-		String[] str=lineList.get(0).split(" ");
-		method=str[0];
-		requestURI=str[1];
+		if(lineList.size()>0){
+			String[] str=lineList.get(0).split(" ");
+			method=str[0];
+			requestURI=str[1];
+		}
+		else{
+			method="get";
+			requestURI=null;
+		}
+
 
 	}
 	@Override
