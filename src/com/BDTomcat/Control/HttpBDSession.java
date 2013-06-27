@@ -19,6 +19,9 @@ public class HttpBDSession implements HttpSession{
 		this.sessionID=createSessionID();
 		GlobalSet.sessionMap.put(this.sessionID, valueMap);
 	}
+	public HttpBDSession(String sessionID){
+		this.sessionID=sessionID;
+	}
 	private String createSessionID(){
 		Date date=new Date();
 		SimpleDateFormat time=new SimpleDateFormat("yyyyMMddHHmmssSSS");

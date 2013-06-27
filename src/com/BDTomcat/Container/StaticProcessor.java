@@ -97,8 +97,11 @@ public class StaticProcessor {
 				      "Content-Type: "+type+"\r\n"+
 				      "Content-length: "+length+"\r\n"+
 				      "Date: "+time.format(date)+"\r\n"+
+				      "Set-Cookie: jsessionid="+request.getSession().getId()+"; path=/\r\n"+
 				      "\r\n";
 		return header;
 	}
+	
+	 
 	 
 }

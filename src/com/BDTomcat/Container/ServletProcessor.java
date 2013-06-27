@@ -61,8 +61,8 @@ public class ServletProcessor {
 			e.printStackTrace();
 		}
 		try {
-			servlet.service((ServletRequest) request, (ServletResponse) response);
-			this.response.getDBwriter().superPush();
+			servlet.service(request, response);
+			this.response.getDBwriter().superPush(request, response);
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

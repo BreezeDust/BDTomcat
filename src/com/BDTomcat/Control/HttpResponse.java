@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.ServletOutputStream;
@@ -16,6 +18,12 @@ import com.BDTomcat.Global.GlobalSet;
 
 public class HttpResponse implements HttpServletResponse {
 	private BDPrintWriter DBwriter;
+	private List<String> addCookieList=new LinkedList();
+
+	public List<String> getAddCookieList() {
+		return addCookieList;
+	}
+
 	public BDPrintWriter getDBwriter() {
 		return DBwriter;
 	}
@@ -117,9 +125,11 @@ public class HttpResponse implements HttpServletResponse {
 	}
 
 	@Override
-	public void addCookie(Cookie arg0) {
+	public void addCookie(Cookie cookie) {
 		// TODO Auto-generated method stub
-
+		
+		String cookieStr=cookie.getName()+"="+cookie.getValue();
+		addCookieList.add(cookieStr);
 	}
 
 	@Override

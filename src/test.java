@@ -26,7 +26,10 @@ public class test extends  HttpServlet {
 	    out.println("<h1>"+request.getParameter("bb")+"</h1>");
 	    out.println("</body>");
 	    out.println("</html>");
-	    Cookie[] cookies=request.getCookies();
+	    Cookie user=new Cookie("name","breezedust");
+	    Cookie passwd=new Cookie("passwd","123456");
+	    response.addCookie(user);
+	    response.addCookie(passwd);
 			
 	}
 }

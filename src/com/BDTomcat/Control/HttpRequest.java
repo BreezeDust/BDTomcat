@@ -115,8 +115,28 @@ public class HttpRequest implements HttpServletRequest{
 		for(int con=0;con<lineLists.length;con++){
 			if(!lineLists[con].equals("")){
 				lineList.add(lineLists[con]);
+				//初始化COOKIE和SESSION
+				if(lineLists[con].matches("Cookie.*")) initCookieAndSession(lineLists[con]);
 			}
 		}
+	}
+
+	public void initCookieAndSession(String cookieStr) {
+		Cookie[] cookies = null;
+		String str = cookieStr.replaceAll("Cookie:", "");
+		str = str.trim();
+		String[] cookieStrTmp = str.split("; ");
+		cookies = new Cookie[cookieStrTmp.length];
+		for (int con1 = 0; con1 < cookieStrTmp.length; con1++) {
+			String[] name_value = cookieStrTmp[con1].split("=");
+			cookies[con1] = new Cookie(name_value[0].trim(),
+					name_value[1].trim());
+			if (name_value[0].trim().toLowerCase().equals("jsessionid")) {
+				session = new HttpBDSession(name_value[1].trim());
+			}
+		}
+		COOKIES = cookies;
+
 	}
 	@Override
 	public Object getAttribute(String arg0) {
@@ -296,25 +316,9 @@ public class HttpRequest implements HttpServletRequest{
 	@Override
 	public Cookie[] getCookies() {
 		// TODO Auto-generated method stub
-		Cookie[] cookies=null;
-		if(cookieStr==null){
-			for(int con=0;con<lineList.size();con++){
-				if(lineList.get(con).matches("Cookie.*")){
-					cookieStr=new String(lineList.get(con));
-					String str=cookieStr.replaceAll("Cookie:", "");
-					str=str.trim();
-					String[] cookieStrTmp=str.split("; ");
-					cookies=new Cookie[cookieStrTmp.length];
-					for(int con1=0;con1<cookieStrTmp.length;con1++){
-						String[] name_value=cookieStrTmp[con1].split("=");
-						cookies[con1]=new Cookie(name_value[0].trim(),name_value[1].trim());
-					}
-					break;
-				}
-			}
-		}
+
 		
-		return cookies;
+		return COOKIES;
 	}
 
 	@Override
@@ -420,8 +424,8 @@ public class HttpRequest implements HttpServletRequest{
 
 	@Override
 	public HttpSession getSession() {
-		// TODO Auto-generated method stub
-		return null;
+		if(session==null) session=new HttpBDSession();
+		return session;
 	}
 
 	@Override
