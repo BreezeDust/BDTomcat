@@ -1,40 +1,33 @@
-
-
-import javax.servlet.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class test implements Servlet {
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-  public void init(ServletConfig config) throws ServletException {
 
-  }
 
-  public void service(ServletRequest request, ServletResponse response)
-    throws ServletException, IOException {
-    System.out.println("Running testServlet");
-    PrintWriter out = response.getWriter(); 
-    out.println("<html>");
-    out.println("<head>");
-    out.println("<link href='css//test.css' rel='stylesheet' //>");
-    out.println("</head>");
-    out.println("<body>");
-    out.println("<h1>"+request.getParameter("tag")+"</h1>");
-    out.println("<h1>"+request.getParameter("bb")+"</h1>");
-    out.println("</body>");
-    out.println("</html>");
- 
-  }
-  public void destroy() {
-    System.out.println("testServlet destroy");
-  }
 
-  public String getServletInfo() {
-    return null;
-  }
-  public ServletConfig getServletConfig() {
-    return null;
-  }
 
+public class test extends  HttpServlet {
+	public void service(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+	    System.out.println("Running testServlet");
+	    PrintWriter out = response.getWriter(); 
+	    out.println("<html>");
+	    out.println("<head>");
+	    out.println("<link href='css//test.css' rel='stylesheet' //>");
+	    out.println("</head>");
+	    out.println("<body>");
+	    out.println("<h1>"+request.getParameter("tag")+"</h1>");
+	    out.println("<h1>"+request.getParameter("bb")+"</h1>");
+	    out.println("</body>");
+	    out.println("</html>");
+	    Cookie[] cookies=request.getCookies();
+			
+	}
 }
 

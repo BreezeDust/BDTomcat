@@ -4,10 +4,10 @@ package com.BDTomcat.Control;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
-public class DBPrintWriter extends PrintWriter {
+public class BDPrintWriter extends PrintWriter {
 	private  String cacheStr="";
 	
-	public DBPrintWriter(OutputStream writer) {
+	public BDPrintWriter(OutputStream writer) {
 		super(writer,true);
 	}
 	public void superPush(){

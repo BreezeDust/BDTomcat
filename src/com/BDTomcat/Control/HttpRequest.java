@@ -28,7 +28,8 @@ public class HttpRequest implements HttpServletRequest{
 	private String[] parameterS=null;;
 	private String fileName=null;
 	private String cookieStr=null;
-	private Cookie[] COOKIES=null; 
+	private Cookie[] COOKIES=null;
+	private HttpBDSession session=null;
 	private boolean isNORequest=false;
 	
 	public boolean isNORequest() {
@@ -299,16 +300,21 @@ public class HttpRequest implements HttpServletRequest{
 		if(cookieStr==null){
 			for(int con=0;con<lineList.size();con++){
 				if(lineList.get(con).matches("Cookie.*")){
-					 cookieStr=new String(lineList.get(con));
+					cookieStr=new String(lineList.get(con));
 					String str=cookieStr.replaceAll("Cookie:", "");
 					str=str.trim();
-					String[] cookieStr=str.split(" ");
+					String[] cookieStrTmp=str.split("; ");
+					cookies=new Cookie[cookieStrTmp.length];
+					for(int con1=0;con1<cookieStrTmp.length;con1++){
+						String[] name_value=cookieStrTmp[con1].split("=");
+						cookies[con1]=new Cookie(name_value[0].trim(),name_value[1].trim());
+					}
 					break;
 				}
 			}
 		}
 		
-		return null;
+		return cookies;
 	}
 
 	@Override

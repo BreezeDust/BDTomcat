@@ -15,12 +15,12 @@ import com.BDTomcat.Global.GlobalSet;
 
 
 public class HttpResponse implements HttpServletResponse {
-	private DBPrintWriter DBwriter;
-	public DBPrintWriter getDBwriter() {
+	private BDPrintWriter DBwriter;
+	public BDPrintWriter getDBwriter() {
 		return DBwriter;
 	}
 
-	public void setDBwriter(DBPrintWriter dBwriter) {
+	public void setDBwriter(BDPrintWriter dBwriter) {
 		DBwriter = dBwriter;
 	}
 
@@ -70,7 +70,7 @@ public class HttpResponse implements HttpServletResponse {
 
 	@Override
 	public PrintWriter getWriter() throws IOException {
-		DBwriter=new DBPrintWriter(this.output);
+		DBwriter=new BDPrintWriter(this.output);
 		return DBwriter;
 	}
 
