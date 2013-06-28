@@ -23,27 +23,32 @@ public class HttpRequest implements HttpServletRequest{
 	private InputStream input;
 	private StringBuffer request=new StringBuffer(2048);
 	private String requestURI="";
-	private String[] requestDirArr=null;
+	private String[] requestDirArr=null;//URL分割数组
 	private String fileExp=null;
-	private String queryString=null;
-	private String[] parameterS=null;;
+	private String queryString=null; //get POST参数字符串
+	private String[] parameterS=null;; //参数
 	private String fileName=null;
-	private String cookieStr=null;
+	private String cookieStr=null; //cookieStr数据块
 	private Cookie[] COOKIES=null;
-	private HttpBDSession session=null;
-	private boolean isNORequest=false;
+	private String hostName=null;
+	private HttpBDSession session=null; 
+	private boolean isNORequest=false; //是否由请求
+	private List<String> lineList=new LinkedList(); //行分割
 	
 	public boolean isNORequest() {
 		return isNORequest;
 	}
 
-	private List<String> lineList=new LinkedList();;
+	
 	private String method=null;
 	public String getFileName() {
 		return fileName;
 	}
 	public String getFileExp() {
 		return fileExp;
+	}
+	public String getHostName() {
+		return hostName;
 	}
 	public String[] getRequestDirArr() {
 		return requestDirArr;
@@ -90,10 +95,13 @@ public class HttpRequest implements HttpServletRequest{
 		    		str=str.substring(0,index2);
 		    	}
 		    	if(index1>0){
+		    		//分割出get请求
 		    		queryString=str.substring(index1+1,str.length());
 		    		str=str.substring(0,index1);
 		    	}    	
 			    requestDirArr=str.split("/");
+			    if(requestDirArr.length>1 && requestDirArr[0].equals("")) hostName=requestDirArr[1];
+			    else hostName=requestDirArr[0];
 			    
 			    //得到扩展名
 			    String[] tmpStrs= requestDirArr[requestDirArr.length-1].split("[.]");
@@ -121,7 +129,10 @@ public class HttpRequest implements HttpServletRequest{
 			}
 		}
 	}
-
+	/***
+	 * 提取cookie和sessionid并初始化session
+	 * @param cookieStr
+	 */
 	public void initCookieAndSession(String cookieStr) {
 		Cookie[] cookies = null;
 		String str = cookieStr.replaceAll("Cookie:", "");

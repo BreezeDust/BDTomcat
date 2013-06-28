@@ -14,16 +14,27 @@ import com.BDTomcat.Global.GlobalSet;
 
 public class HttpBDSession implements HttpSession{
 	private String sessionID=null;
-	private HashMap valueMap=null;
+	private HashMap valueMap=null;//保存用户session
+	/***
+	 * 存在id时
+	 */
 	public HttpBDSession(){
 		this.sessionID=createSessionID();
 		valueMap=new HashMap();
 		GlobalSet.sessionMap.put(this.sessionID, valueMap);
 	}
+	/***
+	 * 不存在id时
+	 * @param sessionID
+	 */
 	public HttpBDSession(String sessionID){
 		this.sessionID=sessionID;
 		valueMap=(HashMap) GlobalSet.sessionMap.get(sessionID);
 	}
+	/***
+	 * 创建一个ID
+	 * @return
+	 */
 	private String createSessionID(){
 		Date date=new Date();
 		SimpleDateFormat time=new SimpleDateFormat("yyyyMMddHHmmssSSS");

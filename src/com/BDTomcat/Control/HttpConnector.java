@@ -36,6 +36,11 @@ public class HttpConnector implements Runnable{
 		}
 		System.out.println("ThreadPool is ready!!");
 	}
+	/***
+	 * 回收线程
+	 * @param processor
+	 */
+	
 	public void recycle(HttpProcessor processor){
 		threadList.offer(processor);
 	}
@@ -54,7 +59,7 @@ public class HttpConnector implements Runnable{
 		// TODO Auto-generated method stub
 		ServerSocket serverSocket = null;
 		try {
-			serverSocket =  new ServerSocket(GlobalSet.port, 1, InetAddress.getByName("127.0.0.1"));
+			serverSocket =  new ServerSocket(GlobalSet.port);
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -67,6 +72,7 @@ public class HttpConnector implements Runnable{
 			try {
 
 				Socket socket = serverSocket.accept();
+				//从线程池中取出一个可用线程
 				HttpProcessor processor=creatHttpProcessor();
 				
 				if(processor==null){
@@ -74,6 +80,7 @@ public class HttpConnector implements Runnable{
 				}
 				else{
 					System.out.println("======="+(con++)+"  T:"+processor.getThreadID());
+					//分配任务
 					processor.assign(socket);
 				}
 				

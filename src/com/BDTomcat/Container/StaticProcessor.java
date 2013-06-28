@@ -16,6 +16,12 @@ public class StaticProcessor {
 	private static final int BUFFER_SIZE = 1024;
 	private HttpRequest request=null;
 	private HttpResponse response=null;
+	
+	/***
+	 * 开始处理静态资源
+	 * @param request
+	 * @param response
+	 */
 	public void process(HttpRequest request, HttpResponse response) {
 		this.request=request;
 		this.response=response;
@@ -26,6 +32,10 @@ public class StaticProcessor {
 			e.printStackTrace();
 		}
 	  }
+	/***
+	 * 发送静态资源
+	 * @throws IOException
+	 */
 	public void sendStaticResource() throws IOException {
 	    byte[] bytes = new byte[BUFFER_SIZE];
 	    FileInputStream fileStream = null;
@@ -71,6 +81,12 @@ public class StaticProcessor {
 	        fileStream.close();
 	    }
 	  }
+	/***
+	 * 得到相应头部信息
+	 * @param length
+	 * @param type
+	 * @return
+	 */
 	public String getHeader(int length,String type){
 		String state="";
 		String stateStr="";

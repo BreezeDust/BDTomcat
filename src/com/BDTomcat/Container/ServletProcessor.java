@@ -21,9 +21,16 @@ public class ServletProcessor {
 	private String servletDir="";
 	private HttpRequest request=null;
 	private HttpResponse response=null;
+	
 	public void process(HttpRequest request, HttpResponse response){
 		this.request=request;
 		this.response=response;
+		this.sendServlet();
+	}
+	/***
+	 * 处理Servlet
+	 */
+	public void sendServlet(){
 		servletName=request.getFileName();
 		String[] URLS=request.getRequestDirArr();
 		for(int con=0;con<URLS.length-1;con++){
@@ -31,10 +38,12 @@ public class ServletProcessor {
 				servletDir+=URLS[con]+"\\";
 			}
 		}
+		//创建Srvlet加载器 
 		URLClassLoader loader = null;
 
         URL[] urls = new URL[1];
         URLStreamHandler streamHandler = null;
+        //得到Servlet目录
         File classPath = new File(GlobalSet.WEBROOT+"\\"+servletDir);
         String repository;
         
@@ -43,12 +52,14 @@ public class ServletProcessor {
 					+ File.separator)).toString();
 			urls[0] = new URL(null, repository, streamHandler);
 			loader = new URLClassLoader(urls);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		Servlet servlet=null; 
 		try {
+			//加载Servlet
 			servlet=(Servlet)loader.loadClass(servletName).newInstance();
 		} catch (InstantiationException e) {
 			// TODO Auto-generated catch block
@@ -66,11 +77,6 @@ public class ServletProcessor {
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-       
-
-		
-		
+		}			
 	} 
 }

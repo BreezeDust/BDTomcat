@@ -1,0 +1,3 @@
+<web-app>
+  <servlet name="test" class="" url="/cs/test"></servlet>
+</web-app>

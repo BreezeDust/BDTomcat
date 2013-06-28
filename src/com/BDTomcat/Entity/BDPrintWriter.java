@@ -9,14 +9,18 @@ import java.util.List;
 
 
 public class BDPrintWriter extends PrintWriter {
-	private  String cacheStr="";
-	private int length;
+	private  String cacheStr=""; //缓存
+	private int length; //主体长度
 	private HttpRequest request=null;
 	private HttpResponse response=null;
 	public BDPrintWriter(OutputStream writer) {
 
 		super(writer,true);
 	}
+	/***
+	 * 得到响应头
+	 * @return
+	 */
 	public String getHeader(){
 		Date date=new Date();
 		SimpleDateFormat time=new SimpleDateFormat("EEE, dd MMMMM yyyy HH:mm:ss z");
@@ -34,6 +38,11 @@ public class BDPrintWriter extends PrintWriter {
 		header+="\r\n";
 		return header;		
 	}
+	/***
+	 * 写入流
+	 * @param request
+	 * @param response
+	 */
 	public void superPush(HttpRequest request,HttpResponse response){
 		this.request=request;
 		this.response=response;

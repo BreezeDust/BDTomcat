@@ -26,16 +26,17 @@ public class test extends  HttpServlet {
 	    out.println("<link href='css//test.css' rel='stylesheet' //>");
 	    out.println("</head>");
 	    out.println("<body>");
-	    out.println("<h1>"+request.getParameter("tag")+"</h1>");
-	    out.println("<h1>"+request.getParameter("bb")+"</h1>");
+	    out.println("<h1>HELLO</h1>");
+	    //out.println("<h1>"+request.getParameter("tag")+"</h1>");
+	   // out.println("<h1>"+request.getParameter("bb")+"</h1>");
 	    out.println("</body>");
 	    out.println("</html>");
-	    Cookie user=new Cookie("name","breezedust");
-	    Cookie passwd=new Cookie("passwd","123456");
-	    response.addCookie(user);
-	    response.addCookie(passwd);
-	    HttpSession session=request.getSession();
-	    session.setAttribute("age", "18");
+	    //Cookie user=new Cookie("name","breezedust");
+	   // Cookie passwd=new Cookie("passwd","123456");
+	   // response.addCookie(user);
+	   // response.addCookie(passwd);
+	   // HttpSession session=request.getSession();
+	   // session.setAttribute("age", "18");
 			
 	}
 }

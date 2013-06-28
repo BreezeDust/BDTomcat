@@ -1,0 +1,4 @@
+<setting>
+	<ServerSocket port="8888"></ServerSocket>
+	<ThreadPool min="2" max="50"/>
+</setting>
