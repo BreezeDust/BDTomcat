@@ -12,8 +12,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import com.BDTomcat.Control.HttpRequest;
-import com.BDTomcat.Control.HttpResponse;
+import com.BDTomcat.Entity.HttpRequest;
+import com.BDTomcat.Entity.HttpResponse;
 import com.BDTomcat.Global.GlobalSet;
 
 public class ServletProcessor {

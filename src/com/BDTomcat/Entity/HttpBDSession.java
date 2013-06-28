@@ -1,4 +1,4 @@
-package com.BDTomcat.Control;
+package com.BDTomcat.Entity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -14,13 +14,15 @@ import com.BDTomcat.Global.GlobalSet;
 
 public class HttpBDSession implements HttpSession{
 	private String sessionID=null;
-	private Map valueMap=new HashMap();
+	private HashMap valueMap=null;
 	public HttpBDSession(){
 		this.sessionID=createSessionID();
+		valueMap=new HashMap();
 		GlobalSet.sessionMap.put(this.sessionID, valueMap);
 	}
 	public HttpBDSession(String sessionID){
 		this.sessionID=sessionID;
+		valueMap=(HashMap) GlobalSet.sessionMap.get(sessionID);
 	}
 	private String createSessionID(){
 		Date date=new Date();
@@ -28,9 +30,9 @@ public class HttpBDSession implements HttpSession{
 		return time.format(date).toString();
 	} 
 	@Override
-	public Object getAttribute(String arg0) {
+	public Object getAttribute(String key) {
 		// TODO Auto-generated method stub
-		return null;
+		return valueMap.get(key);
 	}
 
 	@Override
@@ -118,8 +120,10 @@ public class HttpBDSession implements HttpSession{
 	}
 
 	@Override
-	public void setAttribute(String arg0, Object arg1) {
+	public void setAttribute(String key, Object value) {
 		// TODO Auto-generated method stub
+		valueMap.put(key, value);
+		
 		
 	}
 

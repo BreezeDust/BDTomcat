@@ -1,4 +1,4 @@
-package com.BDTomcat.Control;
+package com.BDTomcat.Entity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,6 +17,7 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 public class HttpRequest implements HttpServletRequest{
 	private InputStream input;

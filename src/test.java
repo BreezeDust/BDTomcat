@@ -7,6 +7,9 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.BDTomcat.strap.BootStrap;
 
 
 
@@ -15,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class test extends  HttpServlet {
 	public void service(HttpServletRequest request,HttpServletResponse response) throws IOException
 	{
+	
 	    System.out.println("Running testServlet");
 	    PrintWriter out = response.getWriter(); 
 	    out.println("<html>");
@@ -30,6 +34,8 @@ public class test extends  HttpServlet {
 	    Cookie passwd=new Cookie("passwd","123456");
 	    response.addCookie(user);
 	    response.addCookie(passwd);
+	    HttpSession session=request.getSession();
+	    session.setAttribute("age", "18");
 			
 	}
 }

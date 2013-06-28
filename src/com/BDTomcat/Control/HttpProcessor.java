@@ -8,6 +8,8 @@ import java.net.Socket;
 
 import com.BDTomcat.Container.ServletProcessor;
 import com.BDTomcat.Container.StaticProcessor;
+import com.BDTomcat.Entity.HttpRequest;
+import com.BDTomcat.Entity.HttpResponse;
 
 public class HttpProcessor implements Runnable{
 	private int threadID=0;

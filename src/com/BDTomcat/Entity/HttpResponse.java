@@ -1,4 +1,4 @@
-package com.BDTomcat.Control;
+package com.BDTomcat.Entity;
 
 import java.io.OutputStream;
 import java.io.IOException;

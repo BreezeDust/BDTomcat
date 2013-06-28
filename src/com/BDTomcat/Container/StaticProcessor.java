@@ -8,8 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import com.BDTomcat.Control.HttpRequest;
-import com.BDTomcat.Control.HttpResponse;
+import com.BDTomcat.Entity.HttpRequest;
+import com.BDTomcat.Entity.HttpResponse;
 import com.BDTomcat.Global.GlobalSet;
 
 public class StaticProcessor {

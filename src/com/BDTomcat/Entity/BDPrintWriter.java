@@ -1,4 +1,4 @@
-package com.BDTomcat.Control;
+package com.BDTomcat.Entity;
 
 
 import java.io.OutputStream;
@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 
 public class BDPrintWriter extends PrintWriter {
 	private  String cacheStr="";
