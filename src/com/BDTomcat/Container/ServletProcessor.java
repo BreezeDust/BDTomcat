@@ -16,12 +16,12 @@ import javax.servlet.ServletResponse;
 
 import com.BDTomcat.Entity.HttpRequest;
 import com.BDTomcat.Entity.HttpResponse;
+import com.BDTomcat.Global.CacheManage;
 import com.BDTomcat.Global.GlobalSet;
 import com.BDTomcat.Global.MD5Util;
 
 public class ServletProcessor {
 	private String servletName="";
-	private String servletDir="";
 	private HttpRequest request=null;
 	private HttpResponse response=null;
 	
@@ -34,20 +34,15 @@ public class ServletProcessor {
 	 * 处理Servlet
 	 */
 	public void sendServlet(){
-		servletName=request.getFileName();
-		String[] URLS=request.getRequestDirArr();
-		for(int con=0;con<URLS.length-1;con++){
-			if(!URLS[con].equals("")){
-				servletDir+=URLS[con]+"\\";
-			}
-		}
+		servletName=request.getServletPage()+"."+request.getFileName();
 		//创建Srvlet加载器 
 		URLClassLoader loader = null;
 
         URL[] urls = new URL[1];
         URLStreamHandler streamHandler = null;
         //得到Servlet目录
-        File classPath = new File(GlobalSet.WEBROOT+"\\"+servletDir);
+        File classPath = new File(GlobalSet.WEBROOT+"\\"+request.getHostName()+"\\WEB-INF\\classes");
+
         String repository;
         
 		try {
@@ -77,25 +72,12 @@ public class ServletProcessor {
 		try {
 			servlet.service(request, response);
 			this.response.getDBwriter().superPush(request, response);
-			writeCache();
+			
 			servlet.destroy();
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}			
 	}
-	/***
-	 *写入缓存  
-	 */
-	public void writeCache(){
-		String cacheName=MD5Util.MD5(request.getRequestURI()+"?"+request.getQueryString());
-		try {
-			PrintWriter cout=new PrintWriter(new File(GlobalSet.WEBROOT+"\\"+request.getHostName()+"\\BDcache\\"+cacheName+".html"));
-			cout.print(this.response.getDBwriter().getWebCache());
-			cout.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+
 }

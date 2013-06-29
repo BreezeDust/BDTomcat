@@ -1,5 +1,7 @@
 package com.BDTomcat.strap;
 
+import java.io.File;
+
 import com.BDTomcat.Control.*;
 import com.BDTomcat.Global.GlobalSet;
 import com.BDTomcat.Global.MD5Util;

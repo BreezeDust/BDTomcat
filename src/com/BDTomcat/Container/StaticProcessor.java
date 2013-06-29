@@ -52,6 +52,7 @@ public class StaticProcessor {
 	    		  }
 	    		  strTXT=getHeader(strTXT.getBytes().length,fileExt)+strTXT;
 	    		  response.getOutput().write(strTXT.getBytes());
+	    		  cin.close(); 
 	    	  }
 	    	  else{
 	  	    	//文件  
@@ -60,7 +61,8 @@ public class StaticProcessor {
 	  	        while (ch!=-1) {
 	  	        	response.getOutput().write(bytes, 0, ch);
 	  	          ch = fileStream.read(bytes, 0, BUFFER_SIZE);
-	  	        }	    		  
+	  	        }
+	  	      fileStream.close();
 	    	  } 
 	        
 	      }

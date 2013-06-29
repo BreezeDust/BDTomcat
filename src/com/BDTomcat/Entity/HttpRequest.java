@@ -32,6 +32,7 @@ public class HttpRequest implements HttpServletRequest{
 	private Cookie[] COOKIES=null;
 	private String URInoQuering=null;
 	private String hostName=null;
+	private String servletPage=null;
 	private HttpBDSession session=null; 
 	private boolean isNORequest=false; //是否由请求
 	private List<String> lineList=new LinkedList(); //行分割
@@ -44,6 +45,12 @@ public class HttpRequest implements HttpServletRequest{
 	private String method=null;
 	public String getFileName() {
 		return fileName;
+	}
+	public String getServletPage() {
+		return servletPage;
+	}
+	public void setServletPage(String servletPage) {
+		this.servletPage = servletPage;
 	}
 	public void setRequestURI(String requestURI) {
 		requestDirArr=requestURI.split("/");

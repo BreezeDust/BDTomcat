@@ -33,6 +33,14 @@ public class initConfig {
 			set=doc.getElementsByTagName("ThreadPool");
 			GlobalSet.minThread=Integer.parseInt(set.item(0).getAttributes().getNamedItem("min").getNodeValue());
 			GlobalSet.maxThread=Integer.parseInt(set.item(0).getAttributes().getNamedItem("max").getNodeValue());
+			set=doc.getElementsByTagName("Cache");
+			String ruanCache=set.item(0).getAttributes().getNamedItem("page").getNodeValue();
+			if(ruanCache.equals("true")){
+				GlobalSet.ruanPageCache=true;
+			}
+			else{
+				GlobalSet.ruanPageCache=false;
+			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +58,7 @@ public class initConfig {
 
 	}
 	
-	public static boolean setSerletMap(String hostName){
+	public synchronized static boolean setSerletMap(String hostName){
 		File file=new File(GlobalSet.WEBROOT+"\\"+hostName+"\\WEB-INF\\web.xml");
 		if(!file.exists()) return false;
 		
@@ -65,16 +73,17 @@ public class initConfig {
 				String dir=set.item(con).getAttributes().getNamedItem("url").getNodeValue();
 				String name=set.item(con).getAttributes().getNamedItem("name").getNodeValue();
 				String packages=set.item(con).getAttributes().getNamedItem("class").getNodeValue();
-				String packagesFile=packages.replaceAll(".", "\\");
+				String packagesFile=packages.replace(".", File.separator);
 				String sDir="";
 				if(packagesFile.equals("")){
-					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\"+name+".class";
+					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\WEB-INF\\classes\\"+name+".class";
 				}
 				else{
-					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\"+packagesFile+"\\"+name+".class";
+					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\WEB-INF\\classes\\"+packagesFile+"\\"+name+".class";
 				}
 				File tmpFile=new File(sDir);
 				ServletMap servlets=new ServletMap("/"+hostName+dir,name,packages,tmpFile.lastModified());
+				servlets.packagesFile=packagesFile;
 				GlobalSet.servletMap.put("/"+hostName+dir, servlets);
 
 			}
@@ -92,6 +101,7 @@ public class initConfig {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//初始化缓存
 		File fileCache=new File(GlobalSet.WEBROOT+"\\"+hostName+"\\BDcache");
 		if(!fileCache.exists()) fileCache.mkdir();
 		GlobalSet.siteList.add(hostName);

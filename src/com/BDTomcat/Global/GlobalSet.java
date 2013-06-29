@@ -15,6 +15,8 @@ public class GlobalSet {
 	public static int minThread=0;
 	//线程池最大线程数
 	public static int maxThread=0;
+	//是否开启页面缓存
+	public static boolean ruanPageCache=true;
 	//SESSION 并发查询HASH表
 	public static Map sessionMap=new ConcurrentHashMap();
 	//Servlet 并发查询HASH表

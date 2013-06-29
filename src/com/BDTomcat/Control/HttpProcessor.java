@@ -12,6 +12,7 @@ import com.BDTomcat.Container.StaticProcessor;
 import com.BDTomcat.Entity.HttpRequest;
 import com.BDTomcat.Entity.HttpResponse;
 import com.BDTomcat.Entity.ServletMap;
+import com.BDTomcat.Global.CacheManage;
 import com.BDTomcat.Global.GlobalSet;
 import com.BDTomcat.Global.MD5Util;
 import com.BDTomcat.Global.initConfig;
@@ -75,17 +76,10 @@ public class HttpProcessor implements Runnable{
         	System.out.println("URL----"+request.getRequestURI());
         	if(request.getFileExp()==null){//Srvlet请求处理 
         		if(haveInited(request.getHostName()) && isTrueURI()){
-        			String serlvetURL;
-        			if(app.packages.equals("")){
-        				serlvetURL="/"+app.name;
-        			}
-        			else{
-        				serlvetURL="/"+app.packages.replaceAll(".", "/")+"/"+app.name;
-        			}
-        			request.setRequestURI(serlvetURL);
-        			if(isFileTime(request.getHostName())){ //文件是否更新
+        			request.setServletPage(app.packages);
+        			if(CacheManage.isFileTime(request.getHostName(),app)){ //文件是否更新
         				
-        				String dir=haveCache(request.getHostName());
+        				String dir=CacheManage.haveCache(request.getHostName(),request);
         				if(!dir.equals("")){ //是否存在缓存
         					System.out.println("Cache----"+dir);
         					request.setRequestURI(dir);
@@ -96,12 +90,15 @@ public class HttpProcessor implements Runnable{
         					System.out.println("Serlvet----"+request.getRequestURI());
                         	ServletProcessor processor=new ServletProcessor();
                         	processor.process(request, response);
+                        	CacheManage.writeCache(request, response);
         				}
         			}
         			else{
         				System.out.println("NewSerlvet----"+request.getRequestURI());
                     	ServletProcessor processor=new ServletProcessor();
                     	processor.process(request, response);
+                    	CacheManage.clearCache(request.getHostName());
+                    	CacheManage.writeCache(request, response);
         			}
         		}
        		
@@ -112,37 +109,7 @@ public class HttpProcessor implements Runnable{
         	}
         }        
 	}
-	/***
-	 * 文件是否更新
-	 * @return
-	 */
-	public  synchronized boolean isFileTime(String hostName){
-		String packagesFile;
-		if(app.packages.equals("")){
-			packagesFile=GlobalSet.WEBROOT+"\\"+hostName+"\\"+app.name+".class";
-		}
-		else{
-			packagesFile=GlobalSet.WEBROOT+"\\"+hostName+"\\"+app.packages.replaceAll(".", "\\")+"\\"+app.name+".class";
-		}
-		File file=new File(packagesFile);
-		if(file.lastModified()==app.lastTime) return true;
-		return false;	
-	}
-	/***
-	 * 检查是否有缓存
-	 * @param hostName
-	 * @return
-	 */
-	public synchronized String haveCache(String hostName){
-		String cacheName=MD5Util.MD5(request.getRequestURI()+"?"+request.getQueryString()); 
-		String dir=GlobalSet.WEBROOT+"\\"+hostName+"\\BDcache\\"+cacheName+".html";
-		File file=new File(dir);
-		if(file.exists()){
-			dir="/"+hostName+"/BDcache/"+cacheName+".html";
-			return dir;
-		}
-		return "";
-	}
+
 	/***
 	 * 检查是否是serlvet的映射地址
 	 * @return
