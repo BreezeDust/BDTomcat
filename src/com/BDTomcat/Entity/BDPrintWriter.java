@@ -10,6 +10,7 @@ import java.util.List;
 
 public class BDPrintWriter extends PrintWriter {
 	private  String cacheStr=""; //缓存
+	private  String  webCache="";
 	private int length; //主体长度
 	private HttpRequest request=null;
 	private HttpResponse response=null;
@@ -38,6 +39,9 @@ public class BDPrintWriter extends PrintWriter {
 		header+="\r\n";
 		return header;		
 	}
+	public String getWebCache() {
+		return webCache;
+	}
 	/***
 	 * 写入流
 	 * @param request
@@ -46,6 +50,7 @@ public class BDPrintWriter extends PrintWriter {
 	public void superPush(HttpRequest request,HttpResponse response){
 		this.request=request;
 		this.response=response;
+		webCache=new String(cacheStr);
 		length=cacheStr.getBytes().length;
 		cacheStr=getHeader()+cacheStr;
 		super.print(cacheStr);

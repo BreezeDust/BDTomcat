@@ -1,7 +1,9 @@
 package com.BDTomcat.Container;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -15,6 +17,7 @@ import javax.servlet.ServletResponse;
 import com.BDTomcat.Entity.HttpRequest;
 import com.BDTomcat.Entity.HttpResponse;
 import com.BDTomcat.Global.GlobalSet;
+import com.BDTomcat.Global.MD5Util;
 
 public class ServletProcessor {
 	private String servletName="";
@@ -74,9 +77,25 @@ public class ServletProcessor {
 		try {
 			servlet.service(request, response);
 			this.response.getDBwriter().superPush(request, response);
+			writeCache();
+			servlet.destroy();
 		} catch (ServletException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}			
-	} 
+	}
+	/***
+	 *写入缓存  
+	 */
+	public void writeCache(){
+		String cacheName=MD5Util.MD5(request.getRequestURI()+"?"+request.getQueryString());
+		try {
+			PrintWriter cout=new PrintWriter(new File(GlobalSet.WEBROOT+"\\"+request.getHostName()+"\\BDcache\\"+cacheName+".html"));
+			cout.print(this.response.getDBwriter().getWebCache());
+			cout.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

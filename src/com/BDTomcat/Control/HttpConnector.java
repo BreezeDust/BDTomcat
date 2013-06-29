@@ -79,7 +79,7 @@ public class HttpConnector implements Runnable{
 					System.out.println("out Tread!!!");
 				}
 				else{
-					System.out.println("======="+(con++)+"  T:"+processor.getThreadID());
+					//System.out.println("======="+(con++)+"  T:"+processor.getThreadID());
 					//分配任务
 					processor.assign(socket);
 				}

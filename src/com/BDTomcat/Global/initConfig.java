@@ -65,7 +65,16 @@ public class initConfig {
 				String dir=set.item(con).getAttributes().getNamedItem("url").getNodeValue();
 				String name=set.item(con).getAttributes().getNamedItem("name").getNodeValue();
 				String packages=set.item(con).getAttributes().getNamedItem("class").getNodeValue();
-				ServletMap servlets=new ServletMap("/"+hostName+dir,name,packages,null);
+				String packagesFile=packages.replaceAll(".", "\\");
+				String sDir="";
+				if(packagesFile.equals("")){
+					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\"+name+".class";
+				}
+				else{
+					sDir=GlobalSet.WEBROOT+"\\"+hostName+"\\"+packagesFile+"\\"+name+".class";
+				}
+				File tmpFile=new File(sDir);
+				ServletMap servlets=new ServletMap("/"+hostName+dir,name,packages,tmpFile.lastModified());
 				GlobalSet.servletMap.put("/"+hostName+dir, servlets);
 
 			}
@@ -83,6 +92,8 @@ public class initConfig {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File fileCache=new File(GlobalSet.WEBROOT+"\\"+hostName+"\\BDcache");
+		if(!fileCache.exists()) fileCache.mkdir();
 		GlobalSet.siteList.add(hostName);
 		return true;
 	}

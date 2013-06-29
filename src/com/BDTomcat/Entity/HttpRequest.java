@@ -30,6 +30,7 @@ public class HttpRequest implements HttpServletRequest{
 	private String fileName=null;
 	private String cookieStr=null; //cookieStr数据块
 	private Cookie[] COOKIES=null;
+	private String URInoQuering=null;
 	private String hostName=null;
 	private HttpBDSession session=null; 
 	private boolean isNORequest=false; //是否由请求
@@ -44,8 +45,24 @@ public class HttpRequest implements HttpServletRequest{
 	public String getFileName() {
 		return fileName;
 	}
+	public void setRequestURI(String requestURI) {
+		requestDirArr=requestURI.split("/");
+	    String[] tmpStrs= requestDirArr[requestDirArr.length-1].split("[.]");
+	    if(tmpStrs.length>1){
+	    	fileExp=tmpStrs[1];
+	    	
+	    }
+	    else{
+	    	fileExp=null;
+	    }
+	    fileName=tmpStrs[0];
+		this.requestURI = requestURI;
+	}
 	public String getFileExp() {
 		return fileExp;
+	}
+	public String getURInoQuering() {
+		return URInoQuering;
 	}
 	public String getHostName() {
 		return hostName;
@@ -78,7 +95,7 @@ public class HttpRequest implements HttpServletRequest{
 	      request.append((char) buffer[con1]);
 	    }
 	    getHTTPLine();//分割每行
-	    System.out.println(request.toString());
+	    //System.out.println(request.toString());
 	    //初始 化URI
 	    if(request.equals("")){
 	    	isNORequest=true;
@@ -94,10 +111,12 @@ public class HttpRequest implements HttpServletRequest{
 		    	if(index2>0){
 		    		str=str.substring(0,index2);
 		    	}
+		    	URInoQuering=new String(str);
 		    	if(index1>0){
 		    		//分割出get请求
 		    		queryString=str.substring(index1+1,str.length());
 		    		str=str.substring(0,index1);
+		    		URInoQuering=new String(str);
 		    	}    	
 			    requestDirArr=str.split("/");
 			    if(requestDirArr.length>1 && requestDirArr[0].equals("")) hostName=requestDirArr[1];
