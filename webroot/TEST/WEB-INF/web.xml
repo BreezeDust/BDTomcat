@@ -1,3 +1,4 @@
 <web-app>
-  <servlet name="test" class="com.cs" url="/cs/test"></servlet>
+  <servlet name="Hello" class="com.cs" url="/cs/Hello"></servlet>
+  <servlet name="Show" class="com.cs" url="/cs/Show"></servlet>
 </web-app>

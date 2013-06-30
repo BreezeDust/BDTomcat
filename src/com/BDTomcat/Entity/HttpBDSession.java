@@ -16,15 +16,18 @@ public class HttpBDSession implements HttpSession{
 	private String sessionID=null;
 	private HashMap valueMap=null;//保存用户session
 	/***
-	 * 存在id时
+	 * 不存在id时
 	 */
 	public HttpBDSession(){
+		initSession();
+	}
+	private void initSession(){
 		this.sessionID=createSessionID();
 		valueMap=new HashMap();
-		GlobalSet.sessionMap.put(this.sessionID, valueMap);
+		GlobalSet.sessionMap.put(this.sessionID, valueMap);	
 	}
 	/***
-	 * 不存在id时
+	 * 存在id时
 	 * @param sessionID
 	 */
 	public HttpBDSession(String sessionID){
@@ -43,6 +46,9 @@ public class HttpBDSession implements HttpSession{
 	@Override
 	public Object getAttribute(String key) {
 		// TODO Auto-generated method stub
+		if(valueMap==null){
+			initSession();
+		}
 		return valueMap.get(key);
 	}
 
@@ -133,6 +139,9 @@ public class HttpBDSession implements HttpSession{
 	@Override
 	public void setAttribute(String key, Object value) {
 		// TODO Auto-generated method stub
+		if(valueMap==null){
+			initSession();
+		}
 		valueMap.put(key, value);
 		
 		
