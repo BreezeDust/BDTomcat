@@ -102,7 +102,7 @@ public class HttpRequest implements HttpServletRequest{
 	      request.append((char) buffer[con1]);
 	    }
 	    getHTTPLine();//分割每行
-	    //System.out.println(request.toString());
+	    System.out.println(request.toString());
 	    //初始 化URI
 	    if(request.equals("")){
 	    	isNORequest=true;

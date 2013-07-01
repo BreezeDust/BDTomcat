@@ -59,7 +59,7 @@ public class StaticProcessor {
 	  	        fileStream = new FileInputStream(file);
 	  	        int ch = fileStream.read(bytes, 0, BUFFER_SIZE);
 	  	        while (ch!=-1) {
-	  	        	response.getOutput().write(bytes, 0, ch);
+	  	          response.getOutput().write(bytes, 0, ch);
 	  	          ch = fileStream.read(bytes, 0, BUFFER_SIZE);
 	  	        }
 	  	      fileStream.close();
