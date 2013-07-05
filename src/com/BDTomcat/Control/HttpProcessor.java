@@ -73,7 +73,8 @@ public class HttpProcessor implements Runnable{
         response=new HttpResponse(output);
         
         if(!request.isNORequest() && request.getRequestURI()!=null){
-        	System.out.println("URL----"+request.getRequestURI());
+        	System.err.println("URL----"+request.getRequestURI());
+        	
         	if(request.getFileExp()==null){//Srvlet请求处理 
         		if(haveInited(request.getHostName()) && isTrueURI()){
         			request.setServletPage(app.packages);
@@ -81,20 +82,22 @@ public class HttpProcessor implements Runnable{
         				
         				String dir=CacheManage.haveCache(request.getHostName(),request);
         				if(!dir.equals("")){ //是否存在缓存
-        					System.out.println("Cache----"+dir);
+        					
+        					System.err.println("Cache----"+dir);
+        					
         					request.setRequestURI(dir);
         	            	StaticProcessor processor=new StaticProcessor();
         	    			processor.process(request, response);
         				}
         				else{
-        					System.out.println("Serlvet----"+request.getRequestURI());
+        					System.err.println("Serlvet----"+request.getRequestURI());
                         	ServletProcessor processor=new ServletProcessor();
                         	processor.process(request, response);
                         	CacheManage.writeCache(request, response);
         				}
         			}
         			else{
-        				System.out.println("NewSerlvet----"+request.getRequestURI());
+        				System.err.println("NewSerlvet----"+request.getRequestURI());
                     	ServletProcessor processor=new ServletProcessor();
                     	processor.process(request, response);
                     	CacheManage.clearCache(request.getHostName());

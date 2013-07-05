@@ -21,6 +21,7 @@ public class HttpConnector implements Runnable{
 	 * 初始化线程池
 	 */
 	public void initThreadList(){
+		System.out.println("----------->initialization ThreadPool ： "+GlobalSet.maxThread);
 		int cons=0;
 		if(GlobalSet.minThread<GlobalSet.maxThread){
 			cons=GlobalSet.maxThread;
@@ -35,6 +36,7 @@ public class HttpConnector implements Runnable{
 			threadList.offer(processor);
 		}
 		System.out.println("ThreadPool is ready!!");
+		System.err.println("[Welcom to BDTomcat v1.0]");
 	}
 	/***
 	 * 回收线程
