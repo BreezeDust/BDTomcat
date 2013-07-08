@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 
 
 public class HttpRequest implements HttpServletRequest{
+	private boolean isAddPost=false;
 	private InputStream input;
 	private StringBuffer request=new StringBuffer(2048);
 	private String requestURI="";
@@ -409,13 +410,16 @@ public class HttpRequest implements HttpServletRequest{
 
 	@Override
 	public String getQueryString() {
-		if(method.toLowerCase().equals("post")){
-			String str=lineList.get(lineList.size()-1);
-			if(str.matches(".*=.*")){
-				queryString=str+"&"+queryString;
+		if(!isAddPost){
+			if(method.toLowerCase().equals("post")){
+				String str=lineList.get(lineList.size()-1);
+				if(str.matches(".*=.*")){
+					queryString=str+"&"+queryString;
+					isAddPost=true;
+				}
 			}
-
 		}
+
 		return queryString;
 	}
 
