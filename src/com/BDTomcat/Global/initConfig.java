@@ -19,6 +19,7 @@ import com.BDTomcat.Entity.ServletMap;
 
 public class initConfig {
 	public static void init(){
+		System.out.println("----------->ServiceConfig...........");
 		setServices();
 	}
 	public static boolean setServices(){
@@ -30,9 +31,14 @@ public class initConfig {
 			Document doc=dombuilder.parse(cin);
 			NodeList set=doc.getElementsByTagName("ServerSocket");
 			GlobalSet.port=Integer.parseInt(set.item(0).getAttributes().getNamedItem("port").getNodeValue());
+			System.out.println("#set port : "+GlobalSet.port);
+			
 			set=doc.getElementsByTagName("ThreadPool");
 			GlobalSet.minThread=Integer.parseInt(set.item(0).getAttributes().getNamedItem("min").getNodeValue());
+			System.out.println("#set minThread : "+GlobalSet.minThread);
+			
 			GlobalSet.maxThread=Integer.parseInt(set.item(0).getAttributes().getNamedItem("max").getNodeValue());
+			System.out.println("#set maxThread : "+GlobalSet.maxThread);
 			set=doc.getElementsByTagName("Cache");
 			String ruanCache=set.item(0).getAttributes().getNamedItem("page").getNodeValue();
 			if(ruanCache.equals("true")){
@@ -41,6 +47,7 @@ public class initConfig {
 			else{
 				GlobalSet.ruanPageCache=false;
 			}
+			System.out.println("#run cache : "+GlobalSet.ruanPageCache);
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -59,6 +66,7 @@ public class initConfig {
 	}
 	
 	public synchronized static boolean setSerletMap(String hostName){
+		System.err.println("----------->initialization WebHost ："+hostName);
 		File file=new File(GlobalSet.WEBROOT+"\\"+hostName+"\\WEB-INF\\web.xml");
 		if(!file.exists()) return false;
 		
@@ -85,6 +93,7 @@ public class initConfig {
 				ServletMap servlets=new ServletMap("/"+hostName+dir,name,packages,tmpFile.lastModified());
 				servlets.packagesFile=packagesFile;
 				GlobalSet.servletMap.put("/"+hostName+dir, servlets);
+				System.err.println("[set serlvet "+con+"] "+servlets.name+"   "+servlets.dir);
 
 			}
 			
